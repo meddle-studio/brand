@@ -6,6 +6,15 @@ Format: `## YYYY-MM-DD: title`, then **Changed**, **Why**, **Affects**, **Checke
 
 ---
 
+## 2026-09-30: v1.6.3 one kit version
+
+**Changed:** the newest CHANGELOG heading is now the kit's only version. `scripts/build-version.mjs`, the first step of `npm run build`, copies it into package.json, index.html's footer, and `visual-system.json` `meta.version` (which the tokens.css header and the Figma sync quote). `npm run verify` fails if they drift. To release, add the changelog entry and run `npm run build`.
+**Why:** four version numbers had drifted apart: the cover showed v1.6.2, the footer and package.json v1.4.0, and visual-system.json v1.2.0.
+**Affects:** version labels only. The visual-system.json version now tracks the kit instead of the token data alone.
+**Checked:** build sets v1.6.3 in all three files, and verify passes.
+
+---
+
 ## 2026-09-30: v1.6.2 MFO was a Brand Sprint; Sprint schedule recorded
 
 **Changed:** facts.md records that MFO was a Brand Sprint (its visuals may illustrate Sprints, unattributed), and the 10-day schedule from the site's HowTo schema. Open question F8 is resolved, and F9 is added (one step of the schedule needs correcting).

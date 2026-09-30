@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "Meddle visual system",
-    "version": "1.2.0",
+    "version": "1.6.3",
     "updated": "2026-09-30",
     "note": "Source of truth for every visual value. Edit this file, then run `node scripts/build-tokens.mjs` to regenerate tokens.css. Never hand-edit tokens.css. References use {path.to.token}. Each token carries `use` (where it applies) and, when non-obvious, `why`.",
     "sources": [
