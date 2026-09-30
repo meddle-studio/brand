@@ -6,7 +6,7 @@ Format: `## YYYY-MM-DD: title`, then **Changed**, **Why**, **Affects**, **Checke
 
 ---
 
-## 2026-09-30: v1.5.1 MFO was a Brand Sprint; Sprint schedule recorded
+## 2026-09-30: v1.6.2 MFO was a Brand Sprint; Sprint schedule recorded
 
 **Changed:** facts.md records that MFO was a Brand Sprint (its visuals may illustrate Sprints, unattributed), and the 10-day schedule from the site's HowTo schema. Open question F8 is resolved, and F9 is added (one step of the schedule needs correcting).
 **Why:** owner, while redesigning the Sprints page on meddle.studio (branch `feature/sprints-page-v2`).
