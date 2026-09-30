@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meddle Deck Template</title>
+<!-- Meddle deck template. 1920×1080 slides measured from the master in Figma:
+     "Discovery & Strategy (TEMPLATE)": figma.com/design/F5oGU0iiKPWWgMGkZDaA21 (frames are 4083×2297; ×0.4703 here).
+     Duplicate a <section class="slide">, change the copy, keep the structure. See templates/deck/README.md.
+     Export: Chrome → Print → Save as PDF (page size is 1920×1080, margins none, background graphics on). -->
+<link rel="stylesheet" href="../../brand/visual/fonts.css">
+<link rel="stylesheet" href="../../brand/visual/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #0e0e0d; }
+  body { font-family: var(--m-font-sans); -webkit-font-smoothing: antialiased; font-feature-settings: 'liga' 1, 'calt' 1; }
+  .slide :where(*) { letter-spacing: var(--m-tracking-brand); } /* recalc per element; see components.css */
+  em { font-family: var(--m-font-serif); font-style: italic; font-weight: 400; letter-spacing: var(--m-tracking-italic); }
+
+  .frame { width: min(100vw, 177.78vh); aspect-ratio: 16 / 9; margin: 0 auto 24px; position: relative; overflow: hidden; }
+  .slide { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; transform-origin: 0 0;
+           background: var(--m-bg); color: var(--m-fg); overflow: hidden; letter-spacing: var(--m-tracking-brand); }
+
+  /* Header: wordmark top-left, mono meta at three fixed x-positions, two-digit page number flush right. */
+  .wm { position: absolute; left: 15px; top: 21px; width: 429px; color: var(--m-fg); }
+  .wm svg { display: block; width: 100%; height: auto; fill: currentColor; }
+  .wm.ghost { color: var(--m-wordmark-ghost); mix-blend-mode: var(--m-wordmark-ghost-blend); } /* interior slides */
+  .meta { position: absolute; top: 18px; font-family: var(--m-font-mono); font-size: 13px; line-height: 1.3;
+          text-transform: uppercase; letter-spacing: 0; color: var(--m-muted); }
+  .meta.c2 { left: 543px; } .meta.c3 { left: 967px; } .meta.c4 { left: 1443px; } .meta.pg { right: 16px; }
+
+  /* Section title: heavy Inter + Baskerville italic. The rule beside it runs to the bottom edge. */
+  .title { position: absolute; left: 46px; top: 176px; margin: 0; font-size: 104px; font-weight: 900; line-height: 1.02; }
+  .title em { padding-left: .05em; }
+  .title .line2 { display: block; }
+  .trule { position: absolute; left: 31px; top: 212px; bottom: 0; border-left: 1px solid var(--m-rule); }
+
+  /* 00 Cover */
+  .cover-rule { position: absolute; left: 15px; right: 15px; border-top: 1px solid var(--m-rule); }
+  .cover-title { position: absolute; left: 20px; top: 408px; margin: 0; font-size: 232px; font-weight: 900; line-height: 1.02; letter-spacing: -0.04em; }
+  .cover-title em { display: block; padding-left: .02em; }
+
+  /* 01 Statement (dark) */
+  .statement-title { font-size: 158px; left: 18px; top: 188px; }
+  .statement-body { position: absolute; left: 508px; top: 420px; width: 1350px; margin: 0; font-size: 50px; font-weight: 400; line-height: 1.55; letter-spacing: -0.02em; }
+
+  /* 02 Columns (sheet) */
+  .cols { position: absolute; left: 31px; right: 16px; top: 626px; bottom: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .col { border-left: 1px solid var(--m-rule); padding: 0 40px 0 15px; font-size: 21px; line-height: 1.2; font-weight: 400; letter-spacing: -0.02em; }
+  .label { display: block; font-size: 21px; font-weight: 700; color: var(--m-label); margin: 0 0 26px; letter-spacing: -0.02em; }
+  .col p { margin: 0 0 1em; }
+
+  /* 03 List + image (paper) */
+  .stack { position: absolute; left: 490px; top: 356px; bottom: 0; width: 440px; border-left: 1px solid var(--m-rule); padding-left: 16px; }
+  .stack .item { margin-bottom: 64px; font-size: 20px; line-height: 1.25; font-weight: 400; letter-spacing: -0.02em; }
+  .stack .label { font-size: 20px; margin-bottom: 18px; }
+  .img { position: absolute; top: 118px; right: 32px; bottom: 32px; border: 1px solid var(--m-rule); background: rgba(26,25,24,.02); overflow: hidden; }
+  .img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img.r-half { left: 966px; } .img.r-third { left: 1156px; }
+
+  /* 04 Big idea (dark) */
+  .idea { position: absolute; left: 48px; top: 400px; width: 1780px; margin: 0; font-size: 172px; font-weight: 400; line-height: 1.05; letter-spacing: -0.035em; text-wrap: balance; }
+
+  /* 05 Conclusion (paper) */
+  .title.two { font-size: 96px; }
+  .conclusion { position: absolute; left: 46px; bottom: 34px; width: 1020px; margin: 0; font-size: 70px; font-weight: 400; line-height: 1.23; letter-spacing: -0.03em; }
+
+  /* 06 Closing (dark, derived): the wordmark edge to edge along the bottom, contact in column 3 */
+  .bleed { position: absolute; left: 15px; right: 15px; bottom: 15px; color: var(--m-fg); }
+  .bleed svg { display: block; width: 100%; height: auto; fill: currentColor; }
+  .contact { position: absolute; left: 967px; top: 176px; margin: 0; padding: 0; list-style: none; font-size: 40px; line-height: 1.45; font-weight: 400; }
+  .contact li::before { content: "→ "; }
+  .signoff { position: absolute; left: 46px; top: 176px; margin: 0; font-family: var(--m-font-serif); font-style: italic; font-size: 40px; letter-spacing: var(--m-tracking-italic); }
+
+  @page { size: 1920px 1080px; margin: 0; }
+  @media print {
+    html, body { background: none; }
+    .frame { width: 1920px; height: 1080px; margin: 0; aspect-ratio: auto; break-after: page; }
+    .slide { transform: none !important; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- The wordmark (brand/assets/logo/meddle-wordmark.svg), defined once and referenced with <use href="#wm">. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wm" viewBox="0 0 912.766 199.808"><path d="M67.6632 0.000488281C83.593 41.1816 88.4713 88.3735 90.6336 133.983H92.669C94.4976 88.1664 100.09 41.8027 115.139 0.000488281H183.022V199.781H123.394L122.94 79.3171H120.645C117.948 112.611 112.696 145.677 105.102 177.695L104.381 178.076C101.164 177.494 79.1751 178.95 78.2074 177.461C77.5534 176.446 75.3845 165.72 74.904 163.469C68.9846 136.066 65.3074 107.561 62.8449 79.3171H60.0887V199.788H0.687381C0.640666 199.788 0 198.967 0 198.9V0.000488281H67.6632Z"/><path d="M489.867 0H574.494C629.644 3.78684 653.836 52.9223 646.675 120.658C635.804 223.571 549.181 195.707 491.448 199.808C490.988 199.935 489.86 199.394 489.86 198.899L489.867 0ZM552.251 139.252H567.62C588.895 139.252 588.829 84.1988 579.506 68.8043C576.476 63.8086 570.189 60.5294 565.324 60.5294H552.251V139.252Z"/><path d="M327.04 199.781V0H411.207C454.218 2.87853 482.22 33.8011 484.396 90.1696C486.818 153.277 465.53 193.623 414.871 199.18C385.634 200.462 356.31 199.454 327.04 199.781ZM389.418 139.252H404.78C425.055 139.252 424.721 88.914 418.401 73.0453C415.311 65.2779 408.885 60.5294 402.031 60.5294H389.418V139.252Z"/><path d="M321.536 0V63.4613H250.903V84.0185H316.952V113.398H250.903V135.739H320.849C320.902 135.739 321.543 136.553 321.543 136.607V198.899C321.543 198.953 320.902 199.781 320.849 199.781H189.206C189.16 199.781 188.519 198.946 188.519 198.899V0H321.536Z"/><path d="M912.766 0V63.4613H842.593V84.0185H907.954C908.008 84.0185 908.648 84.84 908.648 84.9134V113.405H842.593V135.745H912.766V199.788H780.209V0H912.766Z"/><path d="M715.999 0V135.732H774.719V199.781H653.614V0H715.999Z"/></symbol>
+</svg>
+
+<!-- 00 · COVER (paper). Full-contrast wordmark. The interference is scale. -->
+<div class="frame"><section class="slide m-theme-paper">
+  <div class="wm"><svg viewBox="0 0 912.766 199.808" role="img" aria-label="Meddle"><use href="#wm"/></svg></div>
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">00</div>
+  <div class="cover-rule" style="top:136px"></div>
+  <h1 class="cover-title">Discovery <em>&amp; Strategy</em></h1>
+  <div class="cover-rule" style="top:983px"></div>
+</section></div>
+
+<!-- 01 · STATEMENT (dark). Ghost wordmark. A big title and one paragraph set large. -->
+<div class="frame"><section class="slide m-theme-dark">
+  <div class="wm ghost"><svg viewBox="0 0 912.766 199.808" aria-hidden="true"><use href="#wm"/></svg></div>
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">01</div>
+  <h2 class="title statement-title">Project <em>Goal</em></h2>
+  <p class="statement-body">Meddle is a brand and design studio for industry challengers who are ready to interfere with the status quo. By merging business strategy with exceptional design, we help companies reach their full&nbsp;potential.</p>
+</section></div>
+
+<!-- 02 · COLUMNS (sheet). Four ruled columns in the lower half; the space above is the point. -->
+<div class="frame"><section class="slide m-theme-sheet">
+  <div class="wm ghost"><svg viewBox="0 0 912.766 199.808" aria-hidden="true"><use href="#wm"/></svg></div>
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">02</div>
+  <h2 class="title">The Big <em>Picture</em></h2>
+  <div class="cols">
+    <div class="col"><span class="label">Why</span><p>Meddle is a brand and design studio founded on the principle of challenging industry norms and interfering with the status quo.</p></div>
+    <div class="col"><span class="label">Who</span><p>A lean, founder-led studio. Every client works directly with senior talent, in a transparent, partnership-driven&nbsp;process.</p></div>
+    <div class="col"><span class="label">How</span><p>Businesses don't buy "branding." They buy solutions to their problems. We define and solve those problems, from growing deposits to clarifying complex SaaS offerings, with bold, modern, sophisticated&nbsp;design.</p></div>
+    <div class="col"><span class="label">What</span><p>High-impact brand strategy, visual identity, and website design for industry challengers, with particular depth in financial services and B2B&nbsp;SaaS.</p></div>
+  </div>
+</section></div>
+
+<!-- 03 · LIST + IMAGE (paper). Labeled items behind a rule; one image on the right, square corners. -->
+<div class="frame"><section class="slide m-theme-paper">
+  <div class="wm ghost"><svg viewBox="0 0 912.766 199.808" aria-hidden="true"><use href="#wm"/></svg></div>
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">03</div>
+  <h2 class="title">Why <em>Meddle</em></h2>
+  <div class="stack">
+    <div class="item"><span class="label">Signature aesthetic</span>Bold, clean, sophisticated work with a creative edge that stands out in conservative categories.</div>
+    <div class="item"><span class="label">Senior-level partnership</span>You work directly with the founder from the first call to launch. No hand-off to juniors.</div>
+    <div class="item"><span class="label">Transparent process</span>A clearly defined journey and one clear price. No guesswork. No haggling.</div>
+  </div>
+  <div class="img r-half"><img src="../../brand/assets/reference/card-on-concrete-crop.jpg" alt="Meddle business card on a cracked concrete floor"></div>
+</section></div>
+
+<!-- 04 · BIG IDEA (dark). One idea, set huge. One per deck. -->
+<div class="frame"><section class="slide m-theme-dark">
+  <div class="wm ghost"><svg viewBox="0 0 912.766 199.808" aria-hidden="true"><use href="#wm"/></svg></div>
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">04</div>
+  <div class="trule"></div>
+  <h2 class="title">The Big <em>Idea</em></h2>
+  <p class="idea">It's time you seized an unfair&nbsp;advantage.</p>
+</section></div>
+
+<!-- 05 · CONCLUSION (paper). Two-line title (italic second line), a statement anchored bottom-left, image right. -->
+<div class="frame"><section class="slide m-theme-paper">
+  <div class="wm ghost"><svg viewBox="0 0 912.766 199.808" aria-hidden="true"><use href="#wm"/></svg></div>
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">05</div>
+  <div class="trule"></div>
+  <h2 class="title two">What We <span class="line2"><em>Heard</em></span></h2>
+  <p class="conclusion">[Client insight, in their words.] One sentence with a single <em>italic payoff</em>, anchored bottom-left.</p>
+  <div class="img r-third"><img src="../../brand/assets/reference/shirt-against-sky-crop.jpg" alt="Black Meddle shirt held against a blue sky"></div>
+</section></div>
+
+<!-- 06 · CLOSING (dark; derived, not in the Figma master). The wordmark edge to edge is the final interference. -->
+<div class="frame"><section class="slide m-theme-dark">
+  <div class="meta c2">Client name</div>
+  <div class="meta c3">Discovery<br>&amp; Strategy</div>
+  <div class="meta c4">Fortune favors<br>the daring</div>
+  <div class="meta pg">06</div>
+  <p class="signoff">Fortune favors the daring.</p>
+  <ul class="contact"><li>hello@meddle.studio</li><li>meddle.studio</li></ul>
+  <div class="bleed"><svg viewBox="0 0 912.766 199.808" role="img" aria-label="Meddle"><use href="#wm"/></svg></div>
+</section></div>
+
+<script>
+  // Scale each 1920×1080 slide to its frame; print at native size.
+  const fit = () => document.querySelectorAll('.frame').forEach(f => f.querySelector('.slide').style.transform = `scale(${f.clientWidth / 1920})`);
+  new ResizeObserver(fit).observe(document.body);
+  addEventListener('beforeprint', () => document.querySelectorAll('.slide').forEach(s => s.style.transform = 'none'));
+  addEventListener('afterprint', fit);
+  fit();
+</script>
+</body>
+</html>

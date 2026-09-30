@@ -1,0 +1,300 @@
+/* Meddle components. Framework-agnostic HTML/CSS built on brand/visual/tokens.css.
+   Load order: fonts.css → tokens.css → components.css.
+   Every class is prefixed .m- so it can live next to Bootstrap (meddle.studio) or anything else.
+   Components read semantic variables (--m-bg, --m-fg, --m-muted, --m-rule…), so wrap a region
+   in .m-theme-dark / .m-theme-light / .m-theme-paper / .m-theme-sheet and they adapt. See components/README.md. */
+
+/* ---------- Base ---------- */
+/* Minimal reset. The kit can't assume Bootstrap is present. */
+.m-root, .m-root *, .m-root *::before, .m-root *::after { box-sizing: border-box; }
+body.m-root { margin: 0; }
+
+.m-root {
+  background: var(--m-bg);
+  color: var(--m-fg);
+  font-family: var(--m-font-sans);
+  font-weight: var(--m-weight-medium);
+  letter-spacing: var(--m-tracking-brand);
+  font-optical-sizing: auto;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  text-wrap: pretty;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--m-duration-slow) var(--m-ease-expo), color var(--m-duration-slow) var(--m-ease-expo);
+}
+.m-theme-dark, .m-theme-light, .m-theme-paper, .m-theme-sheet { background: var(--m-bg); color: var(--m-fg); }
+/* Tracking is recalculated on every element. An em letter-spacing set only on <body> computes to px there
+   (-0.67px at 16px) and inherits as that fixed px, which leaves large headings loose. :where() keeps this at
+   zero specificity, so any class with its own tracking (mono labels at 0, italics, display) still wins. */
+:where(.m-root, .m-root *) { letter-spacing: var(--m-tracking-brand); }
+.m-root ::selection { background: var(--m-selection); }
+.m-root :focus-visible { outline: 2px solid var(--m-focus); outline-offset: 3px; }
+
+/* The interference: every <em> is Libre Baskerville Italic 400. */
+.m-root em, .m-em {
+  font-family: var(--m-font-serif);
+  font-style: italic;
+  font-weight: var(--m-weight-regular);
+  letter-spacing: var(--m-tracking-italic);
+}
+
+/* ---------- Type roles ---------- */
+.m-display, .m-h1, .m-statement, .m-h2, .m-h3, .m-body-lg, .m-body, .m-small {
+  font-family: var(--m-font-sans);
+  margin: 0;
+  text-wrap: balance;
+}
+.m-display   { font-size: var(--m-type-display-size);   font-weight: var(--m-type-display-weight);   line-height: var(--m-type-display-line-height);   letter-spacing: var(--m-type-display-tracking); }
+.m-display em { font-size: 87%; }
+.m-display em, .m-h1 em { padding-inline-start: .06em; } /* keeps an italic capital off the preceding period */
+.m-h1        { font-size: var(--m-type-h1-size);        font-weight: var(--m-type-h1-weight);        line-height: var(--m-type-h1-line-height);        letter-spacing: var(--m-type-h1-tracking); }
+.m-statement { font-size: var(--m-type-statement-size); font-weight: var(--m-type-statement-weight); line-height: var(--m-type-statement-line-height); letter-spacing: var(--m-type-statement-tracking); }
+.m-h2        { font-size: var(--m-type-h2-size);        font-weight: var(--m-type-h2-weight);        line-height: var(--m-type-h2-line-height);        letter-spacing: var(--m-type-h2-tracking); }
+.m-h3        { font-size: var(--m-type-h3-size);        font-weight: var(--m-type-h3-weight);        line-height: var(--m-type-h3-line-height);        letter-spacing: var(--m-type-h3-tracking); }
+.m-body-lg   { font-size: var(--m-type-body-lg-size);   font-weight: var(--m-type-body-lg-weight);   line-height: var(--m-type-body-lg-line-height);   letter-spacing: var(--m-type-body-lg-tracking); text-wrap: pretty; }
+.m-body      { font-size: var(--m-type-body-size);      font-weight: var(--m-type-body-weight);      line-height: var(--m-type-body-line-height);      letter-spacing: var(--m-type-body-tracking); text-wrap: pretty; max-width: var(--m-layout-measure); }
+.m-small     { font-size: var(--m-type-small-size);     font-weight: var(--m-type-small-weight);     line-height: var(--m-type-small-line-height);     letter-spacing: var(--m-type-small-tracking); }
+
+.m-label, .m-caption {
+  font-family: var(--m-font-mono);
+  font-weight: var(--m-weight-regular);
+  text-transform: uppercase;
+  margin: 0;
+}
+.m-label   { font-size: var(--m-type-label-size);   line-height: var(--m-type-label-line-height);   letter-spacing: var(--m-type-label-tracking); }
+.m-caption { font-size: var(--m-type-caption-size); line-height: var(--m-type-caption-line-height); letter-spacing: var(--m-type-caption-tracking); color: var(--m-muted-small); }
+/* Small mono labels marked muted use the contrast-safe small-muted color (graphite fails on concrete at this size). */
+.m-label.m-muted { color: var(--m-muted-small); }
+
+/* The sign-off as a sentence: always Baskerville italic, sentence case, even inside uppercase mono contexts. */
+.m-signoff { font-family: var(--m-font-serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: var(--m-tracking-italic); }
+
+.m-muted     { color: var(--m-muted); }
+.m-secondary { color: var(--m-fg-secondary); }
+.m-weight-light { font-weight: var(--m-weight-light); }
+
+/* ---------- Links ---------- */
+/* Underline draws in from the left on hover, exits right (motion: underline). */
+.m-link { position: relative; color: inherit; text-decoration: none; }
+.m-link::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: .075em; min-height: 1px; background: currentColor;
+  transform: scaleX(1); transform-origin: left;
+  transition: transform var(--m-duration-deliberate) var(--m-ease-expo);
+}
+@media (hover: hover) and (min-width: 992px) {
+  .m-link:not(:hover)::before { transform: scaleX(0); transform-origin: right; }
+}
+.m-link--arrow::after { content: " →"; }                       /* inline CTAs: arrow after */
+.m-link--lead { padding-left: 1.3em; }                           /* link lists (footer, contact): arrow before */
+.m-link--lead::after { content: "→"; position: absolute; left: 0; }
+.m-link--lead.m-link--external::after { content: "↗"; }
+.m-link--lead::before { left: 1.3em; }
+.m-link--external::after { content: " ↗"; }
+
+/* ---------- Pills: nav + buttons ---------- */
+.m-pill {
+  display: inline-flex; align-items: center; gap: .5em;
+  font-family: var(--m-font-mono); text-transform: uppercase; letter-spacing: 0;
+  font-size: var(--m-type-label-size); line-height: 1; font-weight: var(--m-weight-regular);
+  padding: 12px 16px; border-radius: var(--m-radius-pill); border: 0;
+  background: var(--m-alpha-frost); color: var(--m-color-paper);
+  -webkit-backdrop-filter: var(--m-effect-frost); backdrop-filter: var(--m-effect-frost);
+  text-decoration: none; cursor: pointer;
+  transition: color var(--m-duration-quick) var(--m-ease-standard), background-color var(--m-duration-quick) var(--m-ease-standard), transform var(--m-duration-quick) var(--m-ease-standard);
+}
+.m-pill:hover, .m-pill:focus-visible {
+  background: var(--m-alpha-frost-hover); color: var(--m-color-paper);
+  -webkit-backdrop-filter: var(--m-effect-frost-hover); backdrop-filter: var(--m-effect-frost-hover);
+}
+.m-pill:active { transform: scale(.9); }
+.m-pill[aria-current="page"], .m-pill.is-active { background: var(--m-color-paper); color: var(--m-color-ink); }
+
+/* Large button: the form submit / primary action.
+   Uses inherited custom properties (not .m-theme-light descendant selectors) so a dark panel
+   nested inside a light page still gets the dark button, and vice versa. */
+:root, .m-theme-dark { --m-btn-bg: var(--m-alpha-frost); --m-btn-hover-bg: var(--m-alpha-frost-hover); }
+.m-theme-light, .m-theme-paper, .m-theme-sheet { --m-btn-bg: transparent; --m-btn-hover-bg: var(--m-alpha-ink-75); }
+.m-button {
+  padding: 24.5px 34px; font-size: 14px;
+  background: var(--m-btn-bg); color: var(--m-fg); border: var(--m-border-button) var(--m-fg);
+}
+.m-button:hover, .m-button:focus-visible { background: var(--m-btn-hover-bg); color: var(--m-color-paper); border-color: transparent; }
+.m-button:disabled { opacity: .4; cursor: not-allowed; }
+
+/* The one end-of-page CTA on ink: lift + glow (motion: cta-lift). One per page. */
+.m-cta {
+  border: var(--m-border-button) var(--m-color-paper); transform: scale(.99);
+  font-size: clamp(1.25rem, 1rem + 1.5vw, 2rem); padding: 1.1em 1.5em;
+}
+.m-cta:hover { background: rgba(117, 117, 117, .3); border-color: transparent; box-shadow: var(--m-effect-glow); transform: translateY(-4px); }
+.m-cta:active { transform: scale(.95) translateY(2px); box-shadow: none; }
+
+/* Homepage hero (meddle.studio pattern): the wordmark starts centered, sticks to the top as you scroll,
+   and stops just above the nav (bottom margin = nav height - 12px). The nav sits over the hero's bottom
+   edge and pins to the top once it reaches it (position: sticky), then auto-hides on scroll down.
+   Media is clipped by .m-hero__media: overflow on .m-hero itself would break the sticky wordmark.
+   components.js sets --m-nav-h from the nav's real height. */
+.m-hero { position: relative; height: 100svh; min-height: 560px; display: flex; align-items: center; background: var(--m-color-ink); }
+.m-hero__media { position: absolute; inset: 0; overflow: hidden; }
+.m-hero__media > video, .m-hero__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.m-hero__wordmark { position: sticky; top: 0; z-index: 1; width: 100%; margin: 0 0 calc(var(--m-nav-h, 70px) - 12px); padding: var(--m-space-sm); }
+.m-hero__wordmark svg { display: block; width: 100%; height: auto; fill: currentColor; }
+.m-hero__nav { position: sticky; top: 0; z-index: var(--m-z-nav); margin-top: calc(-1 * var(--m-nav-h, 70px)); padding: var(--m-space-2xs) var(--m-space-sm) var(--m-space-md); }
+
+/* Offer-page top bar: corner wordmark (links home) + one pill at the far end. */
+.m-topbar { display: flex; align-items: center; justify-content: space-between; gap: var(--m-space-sm); padding: var(--m-layout-edge); }
+/* Corner wordmark on web pages: paper + difference blend, so it's always the opposite of what's behind it. */
+.m-topbar .m-wordmark--corner { color: var(--m-color-paper); mix-blend-mode: var(--m-effect-blend-difference); }
+
+/* The end-of-page CTA band: ink, centered, generous. Holds one .m-pill.m-cta. Once per page. */
+.m-cta-band { text-align: center; padding: var(--m-space-3xl) var(--m-layout-gutter); }
+.m-cta-band .m-label { display: block; margin-bottom: var(--m-space-lg); color: var(--m-muted-small); }
+
+/* The aside: one fully italic line under a display headline, talking back to it. */
+.m-aside { font-family: var(--m-font-serif); font-style: italic; font-weight: 400; font-size: var(--m-type-h3-size); line-height: 1.3; letter-spacing: -0.01em; color: var(--m-fg-secondary); margin: var(--m-space-sm) 0 0; }
+
+/* Nav bar: row of pills, Contact pushed right. */
+/* One row always; scrolls horizontally on small screens (as production does). Never hide Contact. */
+.m-nav { display: flex; flex-wrap: nowrap; gap: 4px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.m-nav::-webkit-scrollbar { display: none; }
+.m-nav > li { flex: none; }
+.m-nav > .m-nav__end { margin-left: auto; }
+
+/* ---------- Wordmark ---------- */
+.m-wordmark { display: block; color: currentColor; }
+.m-wordmark--ghost { color: var(--m-wordmark-ghost); mix-blend-mode: var(--m-wordmark-ghost-blend); } /* deck interiors */
+.m-wordmark svg { display: block; width: 100%; height: auto; fill: currentColor; }
+.m-wordmark--corner { width: auto; height: 30px; }
+.m-wordmark--corner svg { height: 100%; width: auto; }
+@media (max-width: 767.98px) { .m-wordmark--corner { height: 24px; } }
+.m-wordmark--bleed { width: 100%; padding: var(--m-space-sm); }
+.m-blend { mix-blend-mode: var(--m-effect-blend-difference); color: var(--m-color-paper); }
+
+/* ---------- Structure ---------- */
+/* 12-column grid (for use outside Bootstrap). Stacks below 768px. */
+.m-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--m-layout-gutter); row-gap: var(--m-space-xl); }
+.m-grid > * { grid-column-end: span 12; } /* end-span only, so .m-span-N and .m-start-N compose */
+@media (min-width: 768px) {
+  .m-grid > .m-span-3 { grid-column-end: span 3; } .m-grid > .m-span-4 { grid-column-end: span 4; } .m-grid > .m-span-5 { grid-column-end: span 5; }
+  .m-grid > .m-span-6 { grid-column-end: span 6; } .m-grid > .m-span-7 { grid-column-end: span 7; } .m-grid > .m-span-8 { grid-column-end: span 8; }
+  .m-grid > .m-span-12 { grid-column-end: span 12; }
+  .m-grid > .m-start-5 { grid-column-start: 5; } .m-grid > .m-start-7 { grid-column-start: 7; }
+}
+.m-container { width: 100%; max-width: var(--m-layout-container-max); margin: 0 auto; padding: 0 var(--m-layout-gutter); }
+.m-section { padding-bottom: var(--m-space-3xl); }
+.m-section .m-section__head { border-top: var(--m-border-hairline) var(--m-hairline); padding-top: var(--m-space-sm); margin-bottom: var(--m-space-xl); }
+@media (min-width: 992px) { .m-section { padding-bottom: var(--m-space-4xl); } }
+.m-rule { border: 0; border-top: var(--m-border-rule) var(--m-rule); margin: 0; }
+.m-hairline { border: 0; border-top: var(--m-border-hairline) var(--m-hairline); margin: 0; }
+
+/* Section title: mono number over heavy Inter + italic payoff. */
+.m-section-title { margin: 0; }
+.m-section-title__number { display: block; font-family: var(--m-font-mono); font-weight: var(--m-weight-medium); color: var(--m-muted); font-size: .28em; letter-spacing: 0; margin-bottom: .15em; }
+.m-section-title__text { display: block; font-weight: var(--m-weight-black); letter-spacing: var(--m-tracking-brand); line-height: 1; }
+
+/* Ruled columns: the deck grid on the web. 4 columns, 1px rule at each column's left edge. */
+.m-columns { display: grid; grid-template-columns: repeat(var(--m-columns, 4), minmax(0, 1fr)); }
+.m-columns > * { border-left: var(--m-border-rule) var(--m-label, var(--m-rule)); padding: 0 var(--m-space-sm) var(--m-space-xl); }
+.m-columns > .m-columns__empty { border-left-color: transparent; }
+.m-col-label { font-weight: var(--m-weight-bold); color: var(--m-label, var(--m-muted)); margin: 0 0 .6em; font-size: 1em; }
+@media (max-width: 767.98px) { .m-columns { grid-template-columns: 1fr; } .m-columns > .m-columns__empty { display: none; } }
+
+/* ---------- Lists ---------- */
+.m-list { list-style: none; margin: 0; padding: 0; }
+.m-list > li {
+  position: relative; padding: 1rem 0 1rem 1.67em;
+  border-bottom: var(--m-border-rule) var(--m-rule);
+  font-weight: var(--m-weight-light);
+}
+.m-list > li::before {
+  content: ""; position: absolute; left: 0; top: 1.45rem; width: 1em; height: 1em;
+  background: currentColor; opacity: .75;
+  /* Inlined (same path as brand/assets/icons/arrow-list.svg): mask images need CORS, which file:// can't provide. */
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'><path d='M 2.133 14.197 L 29 14.25 M 30.161 14.197 L 17.885 2.299 M 30.161 14.197 L 17.885 26.096' fill='none' stroke-width='4' stroke='black' stroke-linecap='square'/></svg>") center / contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'><path d='M 2.133 14.197 L 29 14.25 M 30.161 14.197 L 17.885 2.299 M 30.161 14.197 L 17.885 26.096' fill='none' stroke-width='4' stroke='black' stroke-linecap='square'/></svg>") center / contain no-repeat;
+}
+.m-list--no > li { color: var(--m-muted); }
+.m-list--no > li::before { content: "×"; background: none; -webkit-mask: none; mask: none; opacity: 1; font-weight: 400; font-size: 1.75em; line-height: 1; top: .45rem; width: auto; height: auto; }
+.m-list--plain > li { padding-left: 0; }
+.m-list--plain > li::before { display: none; }
+
+/* Numbered engagement rows ("Ways to Engage"). */
+.m-rows { list-style: none; margin: 0; padding: 0; }
+.m-row {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--m-space-md); align-items: center;
+  padding: var(--m-space-md) 0; border-bottom: var(--m-border-rule) var(--m-rule);
+  color: inherit; text-decoration: none;
+}
+.m-row__num { font-family: var(--m-font-mono); letter-spacing: 0; font-size: var(--m-type-label-size); color: var(--m-muted-small); align-self: start; padding-top: .4em; }
+.m-row__title { font-size: var(--m-type-h2-size); font-weight: var(--m-weight-semibold); line-height: 1.1; margin: 0; }
+.m-row__desc { color: var(--m-fg-secondary); margin: 0; font-size: var(--m-type-body-size); line-height: var(--m-type-body-line-height); font-weight: var(--m-weight-medium); } /* not --m-muted: small grey on concrete fails contrast */
+@media (max-width: 991.98px) { .m-row { grid-template-columns: 2.5rem 1fr; } .m-row__desc { grid-column: 2; } }
+
+/* Comparison: Meddle (arrows) vs. the traditional agency (crosses). */
+.m-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--m-space-lg); }
+.m-compare h3 { font-weight: var(--m-weight-bold); color: var(--m-muted); margin: 0 0 var(--m-space-2xs); }
+@media (max-width: 767.98px) { .m-compare { grid-template-columns: 1fr; } }
+
+/* ---------- Quote ---------- */
+.m-quote { margin: 0; }
+.m-quote__mark { font-family: var(--m-font-serif); font-weight: 700; font-size: clamp(80px, 8vw, 100px); line-height: .67; display: block; }
+.m-quote blockquote { margin: 0; }
+.m-quote p { font-family: var(--m-font-serif); font-style: italic; font-size: var(--m-type-quote-size); font-weight: 400; line-height: var(--m-type-quote-line-height); letter-spacing: var(--m-type-quote-tracking); margin: .4em 0 0; }
+.m-quote cite { display: block; font-family: var(--m-font-sans); font-style: normal; margin-top: 1.25em; font-size: 1.2rem; letter-spacing: -0.0125em; }
+
+/* ---------- Media ---------- */
+.m-figure { margin: 0; }
+.m-figure img, .m-figure video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+.m-figure figcaption { margin-top: var(--m-space-2xs); }
+.m-ratio-16x9 { aspect-ratio: 16 / 9; overflow: hidden; }
+.m-ratio-5x6 { aspect-ratio: 5 / 6; overflow: hidden; }
+.m-placeholder { display: flex; align-items: center; justify-content: center; background: var(--m-hairline); border: var(--m-border-hairline) var(--m-hairline); }
+
+/* ---------- Forms ---------- */
+.m-field { display: block; margin-top: var(--m-space-xl); }
+.m-field__label { display: block; font-family: var(--m-font-mono); letter-spacing: 0; font-size: var(--m-type-label-size); font-weight: var(--m-weight-medium); text-transform: uppercase; color: var(--m-muted-small); }
+.m-input {
+  width: 100%; background: transparent; border: 0; border-bottom: 1px solid currentColor; border-radius: 0;
+  color: inherit; padding: 1rem 0; font: inherit; font-size: 1.25rem; letter-spacing: var(--m-tracking-brand);
+  transition: border-color .4s ease;
+}
+.m-input::placeholder { font-weight: var(--m-weight-light); color: currentColor; opacity: .35; }
+.m-input:focus { outline: none; box-shadow: 0 1px 0 0 currentColor; }
+.m-chips { display: flex; flex-wrap: wrap; gap: var(--m-space-2xs); margin-top: var(--m-space-sm); }
+.m-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.m-chip span { display: inline-block; padding: .5rem 1.25rem; border: 1px solid currentColor; color: var(--m-muted); cursor: pointer; transition: all .3s; }
+.m-chip input:checked + span { background: var(--m-fg); color: var(--m-bg); border-color: var(--m-fg); }
+.m-chip input:focus-visible + span { outline: 2px solid var(--m-focus); outline-offset: 2px; }
+
+/* ---------- Tooltip ---------- */
+.m-tooltip {
+  position: fixed; pointer-events: none; z-index: var(--m-z-tooltip);
+  font-family: var(--m-font-mono); text-transform: uppercase; font-size: var(--m-type-label-size); line-height: 1; font-weight: var(--m-weight-medium); letter-spacing: 0;
+  padding: 11px 16px; border-radius: var(--m-radius-pill); white-space: nowrap;
+  color: var(--m-color-ink); background: rgba(232, 232, 232, .75);
+  -webkit-backdrop-filter: var(--m-effect-frost-tooltip); backdrop-filter: var(--m-effect-frost-tooltip);
+  box-shadow: var(--m-effect-shadow-tooltip);
+  opacity: 0; transition: opacity var(--m-duration-instant) var(--m-ease-standard);
+}
+.m-tooltip.is-visible { opacity: 1; }
+
+/* ---------- Doc header (mono meta row) ---------- */
+.m-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 0; }
+.m-meta__item { font-family: var(--m-font-mono); letter-spacing: 0; font-size: var(--m-type-label-size); line-height: 1.25; text-transform: uppercase; color: var(--m-muted-small); }
+.m-meta__item--end { text-align: right; }
+
+/* ---------- Footer ---------- */
+.m-footer { display: flex; justify-content: space-between; gap: var(--m-space-md); flex-wrap: wrap; padding-top: var(--m-space-md); padding-bottom: var(--m-space-xl); }
+.m-footer, .m-footer a { font-family: var(--m-font-mono); letter-spacing: 0; font-size: .75rem; text-transform: uppercase; color: inherit; text-decoration: none; }
+.m-footer ul { display: flex; gap: var(--m-space-md); list-style: none; margin: 0; padding: 0; }
+.m-footer__legal { color: var(--m-muted); }
+
+/* ---------- Reveal ----------
+   Progressive enhancement: content is visible by default. components.js adds .m-js to <html>;
+   only then do .m-reveal (statement: fade up) and .m-reveal-list (items fade right in turn) start hidden. */
+.m-js .m-reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--m-duration-statement) var(--m-ease-expo), transform var(--m-duration-statement) var(--m-ease-expo); }
+.m-js .m-reveal-list > li { opacity: 0; transform: translateX(-16px); transition: opacity var(--m-duration-reveal) var(--m-ease-expo), transform var(--m-duration-reveal) var(--m-ease-expo); }
+.m-js .m-reveal.is-in, .m-js .m-reveal-list.is-in > li { opacity: 1; transform: none; }
+@media (max-width: 767.98px) { .m-js .m-reveal-list > li { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .m-js .m-reveal, .m-js .m-reveal-list > li { opacity: 1; transform: none; } }

@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "name": "Meddle visual system",
+    "version": "1.2.0",
+    "updated": "2026-09-30",
+    "note": "Source of truth for every visual value. Edit this file, then run `node scripts/build-tokens.mjs` to regenerate tokens.css. Never hand-edit tokens.css. References use {path.to.token}. Each token carries `use` (where it applies) and, when non-obvious, `why`.",
+    "sources": [
+      "meddle.studio production SCSS (assets/css/site.scss, 2026)",
+      "Meddle Discovery & Strategy presentation template (Figma, 2026), the current deck system: figma.com/design/F5oGU0iiKPWWgMGkZDaA21",
+      "Meddle business plan deck (InDesign, Sept 2025), the previous deck generation, sampled pixel values",
+      "Owner decisions, 2026-09-30 (see CHANGELOG.md)"
+    ]
+  },
+
+  "color": {
+    "ink": {
+      "value": "#1a1918",
+      "use": "Primary dark. Backgrounds of covers, heroes, CTAs, footers. Text and wordmark on light surfaces.",
+      "why": "A warm near-black, not #000. It reads as printed ink, not as a screen turned off. The deck's #231f20 is the same intent (100K print black) and should be treated as ink."
+    },
+    "paper": {
+      "value": "#e8e8e8",
+      "use": "Text and wordmark on ink. Active nav pill fill. Light-theme surface on the web when concrete is too heavy.",
+      "why": "Softer than #fff so large reversed type on ink doesn't glare. The site never uses pure white for type."
+    },
+    "concrete": {
+      "value": "#d9d9d9",
+      "use": "Default light background for web pages (home Work/Services, Sprints, Contact).",
+      "why": "Echoes the raw concrete of the art direction. Gives light sections weight so they don't feel like an empty document."
+    },
+    "sheet": {
+      "value": "#fcfbfa",
+      "use": "Warm near-white for reading-heavy document surfaces: column slides, proposals, PDFs, one-pagers.",
+      "why": "From the Figma presentation template (column and competitor slides). Dense reading gets the lightest surface. It replaces the business plan's cooler #fbfcfc."
+    },
+    "graphite": {
+      "value": "#757575",
+      "use": "Muted text on light surfaces (labels, meta, the 'traditional agency' column) and rules in decks. Also the dark-slide ghost wordmark at 30% opacity.",
+      "why": "4.48:1 on sheet and 3.26:1 on concrete, so it is a large-text color: 18.66px bold or 24px+. For small secondary text on light surfaces use alpha.ink-75 instead."
+    },
+    "ash": {
+      "value": "#8c8d8d",
+      "use": "Muted text on ink (web).",
+      "why": "Sampled from the 2025 deck. On ink it passes AA where graphite does not, so the muted color swaps per surface."
+    },
+    "signal": {
+      "value": "#af69f4",
+      "use": "The only accent. Text-selection highlight (40% alpha), keyboard focus ring on dark surfaces, and one-off 'live' indicators. Never a fill for buttons, backgrounds, headlines, or the wordmark.",
+      "why": "Owner decision 2026-09-30: the brand is monochrome and purple is a signal, not a color scheme. A signal only works if it is rare."
+    },
+    "legacy": {
+      "status": "retired 2026-09-30. Present in older site SCSS. Do not use in new work.",
+      "green": { "value": "#00ff6a", "status": "retired" },
+      "blue": { "value": "#4160ff", "status": "retired" },
+      "red": { "value": "#ff0000", "status": "retired" }
+    }
+  },
+
+  "alpha": {
+    "ink-75": { "value": "rgba(26, 25, 24, 0.75)", "use": "Secondary body text on light surfaces." },
+    "ink-65": { "value": "rgba(26, 25, 24, 0.65)", "use": "Small muted text on light (mono labels, captions, list numbers). 4.7:1 on concrete, where graphite fails." },
+    "ink-42": { "value": "rgba(26, 25, 24, 0.42)", "use": "Rules on light: bordered lists, section dividers." },
+    "ink-10": { "value": "rgba(26, 25, 24, 0.10)", "use": "Hairlines on light: structural section tops, image placeholders." },
+    "paper-80": { "value": "rgba(232, 232, 232, 0.80)", "use": "Secondary body text on ink." },
+    "paper-42": { "value": "rgba(232, 232, 232, 0.42)", "use": "Rules on ink." },
+    "paper-10": { "value": "rgba(232, 232, 232, 0.10)", "use": "Hairlines on ink." },
+    "paper-25": { "value": "rgba(232, 232, 232, 0.25)", "use": "Placeholder text in fields on ink." },
+    "signal-40": { "value": "rgba(175, 105, 244, 0.40)", "use": "::selection background, all themes." },
+    "frost": { "value": "rgba(40, 40, 40, 0.80)", "use": "Frosted pill fill (nav links, buttons) over imagery or ink." },
+    "frost-hover": { "value": "rgba(144, 144, 144, 0.80)", "use": "Frosted pill hover/focus fill." }
+  },
+
+  "theme": {
+    "dark": {
+      "use": "Openings: heroes, covers, CTAs, footers, quote sections. The site's default theme.",
+      "bg": "{color.ink}",
+      "fg": "{color.paper}",
+      "fg-secondary": "{alpha.paper-80}",
+      "muted": "{color.ash}",
+      "muted-small": "{color.ash}",
+      "rule": "{alpha.paper-42}",
+      "hairline": "{alpha.paper-10}",
+      "focus": "{color.signal}",
+      "selection": "{alpha.signal-40}",
+      "wordmark-ghost": "rgba(117, 117, 117, 0.3)",
+      "wordmark-ghost-blend": "normal"
+    },
+    "light": {
+      "use": "The work: case studies, service lists, pricing, forms on the web.",
+      "bg": "{color.concrete}",
+      "fg": "{color.ink}",
+      "fg-secondary": "{alpha.ink-75}",
+      "muted": "{color.graphite}",
+      "muted-small": "{alpha.ink-65}",
+      "rule": "{alpha.ink-42}",
+      "hairline": "{alpha.ink-10}",
+      "focus": "{color.ink}",
+      "selection": "{alpha.signal-40}",
+      "wordmark-ghost": "{color.concrete}",
+      "wordmark-ghost-blend": "multiply"
+    },
+    "paper": {
+      "use": "Decks: the cover and most interior slides (Figma template). Solid graphite rules, bold graphite labels.",
+      "bg": "{color.paper}",
+      "fg": "{color.ink}",
+      "fg-secondary": "{alpha.ink-75}",
+      "muted": "{color.graphite}",
+      "muted-small": "{alpha.ink-65}",
+      "label": "{color.graphite}",
+      "rule": "{color.graphite}",
+      "hairline": "{alpha.ink-10}",
+      "focus": "{color.ink}",
+      "selection": "{alpha.signal-40}",
+      "wordmark-ghost": "{color.concrete}",
+      "wordmark-ghost-blend": "multiply"
+    },
+    "sheet": {
+      "use": "Reading-heavy documents: column slides, proposals, PDFs, one-pagers.",
+      "bg": "{color.sheet}",
+      "fg": "{color.ink}",
+      "fg-secondary": "{alpha.ink-75}",
+      "muted": "{color.graphite}",
+      "muted-small": "{alpha.ink-65}",
+      "label": "{color.graphite}",
+      "rule": "{color.graphite}",
+      "hairline": "{alpha.ink-10}",
+      "focus": "{color.ink}",
+      "selection": "{alpha.signal-40}",
+      "wordmark-ghost": "{color.concrete}",
+      "wordmark-ghost-blend": "multiply"
+    }
+  },
+
+  "font": {
+    "family": {
+      "sans": { "value": "\"Inter\", \"Helvetica Neue\", Helvetica, Arial, sans-serif", "use": "Everything by default: headlines, statements, body, UI." },
+      "mono": { "value": "\"IBM Plex Mono\", ui-monospace, \"SF Mono\", Menlo, monospace", "use": "Uppercase labels only: nav, buttons, meta, captions, footer, tooltips, form labels, section numbers." },
+      "serif": { "value": "\"Libre Baskerville\", Baskerville, Georgia, serif", "use": "The interference. Italic 400 for emphasized words (<em>) and for client quotations. Roman only in the oversized bold opening quotation mark. Nothing else." }
+    },
+    "weight": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "extrabold": 800,
+      "black": 900
+    },
+    "tracking": {
+      "brand": { "value": "-0.042em", "use": "All Inter text: headlines, statements, body.", "why": "The site sets -.042em on every heading and paragraph. It tightens Inter into something denser and more editorial. 42 recurs in the system (rule opacity .42 too)." },
+      "italic": { "value": "-0.042em", "use": "The Libre Baskerville Italic payoff, sign-off, and quotes.", "why": "Owner decision 2026-09-30: tighter italic tracking so the payoff sits with the tight Inter around it instead of looking loose beside it." },
+      "display": { "value": "-0.03em", "use": "Inter at 100px+, where -0.042em starts to collide." },
+      "body-long": { "value": "-0.025em", "use": "Long-form case-study body at 21.6-32px." },
+      "mono": { "value": "0em", "use": "Mono labels 12px and up." },
+      "mono-caption": { "value": "0.08em", "use": "Mono captions at 11px and below." }
+    }
+  },
+
+  "type": {
+    "display": {
+      "family": "{font.family.sans}", "size": "clamp(3.125rem, 1.6rem + 6.5vw, 6.875rem)", "weight": 900, "lineHeight": 1, "tracking": "{font.tracking.display}",
+      "use": "Heroes, deck covers and section titles, the one big line on a page. 50px to 110px."
+    },
+    "h1": {
+      "family": "{font.family.sans}", "size": "clamp(2.8125rem, 1.9rem + 3.6vw, 5rem)", "weight": 800, "lineHeight": 1.05, "tracking": "{font.tracking.brand}",
+      "use": "Page and case-study titles. 45px to 80px."
+    },
+    "statement": {
+      "family": "{font.family.sans}", "size": "clamp(1.875rem, 1.2rem + 2.4vw, 3rem)", "weight": 500, "lineHeight": 1.3, "tracking": "{font.tracking.brand}",
+      "use": "The centered positioning paragraph ('It's time you seized an unfair advantage...'). Medium weight, not bold: it speaks, it doesn't shout. 30px to 48px."
+    },
+    "h2": {
+      "family": "{font.family.sans}", "size": "clamp(1.875rem, 1.1rem + 3vw, 3.75rem)", "weight": 500, "lineHeight": 1.15, "tracking": "{font.tracking.brand}",
+      "use": "Section headlines. 30px to 60px."
+    },
+    "h3": {
+      "family": "{font.family.sans}", "size": "clamp(1.25rem, 1rem + 1vw, 2rem)", "weight": 500, "lineHeight": 1.3, "tracking": "{font.tracking.brand}",
+      "use": "Sub-heads, and list items in bordered lists (set those at weight 300). 20px to 32px."
+    },
+    "body-lg": {
+      "family": "{font.family.sans}", "size": "clamp(1.35rem, 1rem + 1.2vw, 2rem)", "weight": 400, "lineHeight": 1.3, "tracking": "{font.tracking.body-long}",
+      "use": "Case-study narrative body. 21.6px to 32px."
+    },
+    "body": {
+      "family": "{font.family.sans}", "size": "1.2rem", "weight": 500, "lineHeight": 1.4, "tracking": "{font.tracking.brand}",
+      "use": "Default web paragraph (19.2px, medium). In documents set body at weight 400."
+    },
+    "small": {
+      "family": "{font.family.sans}", "size": "1rem", "weight": 500, "lineHeight": 1.4, "tracking": "{font.tracking.brand}",
+      "use": "Secondary copy, form help text."
+    },
+    "label": {
+      "family": "{font.family.mono}", "size": "clamp(0.75rem, 0.6rem + 0.35vw, 0.906rem)", "weight": 400, "lineHeight": 1, "tracking": "{font.tracking.mono}", "transform": "uppercase",
+      "use": "Nav, buttons, meta, footer, tooltips, form labels. 12px to 14.5px."
+    },
+    "caption": {
+      "family": "{font.family.mono}", "size": "0.6875rem", "weight": 400, "lineHeight": 1.3, "tracking": "{font.tracking.mono-caption}", "transform": "uppercase",
+      "use": "Figure captions, service tags on case-study heroes. 11px."
+    },
+    "emphasis": {
+      "family": "{font.family.serif}", "style": "italic", "weight": 400, "tracking": "{font.tracking.italic}",
+      "use": "Any <em>. Inherits size from its parent. At display sizes paired with weight 900, set to 87% so the serif italic doesn't overpower the sans."
+    },
+    "quote": {
+      "family": "{font.family.serif}", "style": "italic", "size": "clamp(1.5rem, 3vw, 2.5rem)", "weight": 400, "lineHeight": 1.4, "tracking": "{font.tracking.italic}",
+      "use": "Client testimonials and pull quotes: Libre Baskerville Italic at -0.042em (as on the MFO case study). The opening mark is Baskerville Bold roman, oversized."
+    }
+  },
+
+  "space": {
+    "3xs": { "value": "0.25rem" },
+    "2xs": { "value": "0.5rem" },
+    "xs": { "value": "0.75rem" },
+    "sm": { "value": "1rem", "use": "Edge margin for the wordmark and nav (tight to the corner)." },
+    "md": { "value": "1.5rem" },
+    "lg": { "value": "2rem", "use": "Grid gutter." },
+    "xl": { "value": "3rem" },
+    "2xl": { "value": "4.5rem", "use": "Space between identity sub-sections (desktop)." },
+    "3xl": { "value": "7.5rem", "use": "Section bottom padding, mobile." },
+    "4xl": { "value": "11.25rem", "use": "Section bottom padding, desktop. Meddle pages breathe." }
+  },
+
+  "radius": {
+    "none": { "value": "0", "use": "Everything that holds content: images, video, cards, fields, chips, deck elements." },
+    "pill": { "value": "999px", "use": "Things you press to go somewhere: nav links, buttons, tooltips.", "why": "One shape per job. Pills say 'action'; squares say 'content'." }
+  },
+
+  "border": {
+    "rule": { "value": "1px solid", "use": "Pair with theme rule color (42% alpha)." },
+    "hairline": { "value": "1px solid", "use": "Pair with theme hairline color (10% alpha)." },
+    "button": { "value": "1.5px solid", "use": "Outlined pill buttons." }
+  },
+
+  "effect": {
+    "frost": { "value": "blur(20px) saturate(220%)", "use": "backdrop-filter on nav and button pills." },
+    "frost-hover": { "value": "blur(60px) saturate(190%)", "use": "backdrop-filter on pill hover/focus." },
+    "frost-tooltip": { "value": "blur(5px) saturate(220%)", "use": "backdrop-filter on the cursor tooltip." },
+    "shadow-soft": { "value": "0 6px 24px rgba(0, 0, 0, 0.08)", "use": "Rare. Floating panels only." },
+    "shadow-tooltip": { "value": "0 10px 30px rgba(0, 0, 0, 0.05)" },
+    "glow": { "value": "0 0 20px rgba(232, 232, 232, 0.8)", "use": "Hover on the single primary CTA on ink (e.g. 'Book an intro call' band)." },
+    "blend-difference": { "value": "difference", "use": "mix-blend-mode for the wordmark and nav when they sit over video or imagery." },
+    "noise-opacity": { "value": "0.06", "use": "Optional full-screen film-grain overlay." }
+  },
+
+  "layout": {
+    "container-max": { "value": "1470px" },
+    "gutter": { "value": "2rem" },
+    "edge": { "value": "1rem" },
+    "measure": { "value": "38em", "use": "Max line length for body copy." },
+    "breakpoint": { "sm": "576px", "md": "768px", "lg": "992px", "xl": "1200px", "xxl": "1400px" },
+    "deck": {
+      "width": "1920px",
+      "height": "1080px",
+      "margin": "16px",
+      "columns": 4,
+      "column-rule": "1px solid {color.graphite}",
+      "use": "Decks, proposals, and one-pagers. See brand/visual/layout.md and templates/deck/."
+    }
+  },
+
+  "z": {
+    "base": 0,
+    "raised": 1,
+    "dropdown": 800,
+    "tooltip": 999,
+    "nav": 1050
+  }
+}

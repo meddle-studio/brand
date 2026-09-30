@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meddle Social Tiles</title>
+<link rel="icon" href="../../brand/assets/logo/meddle-icon-512.png">
+<link rel="stylesheet" href="../../brand/visual/fonts.css">
+<link rel="stylesheet" href="../../brand/visual/tokens.css">
+<link rel="stylesheet" href="../../components/components.css">
+<link rel="stylesheet" href="tiles.css">
+<style>
+  html, body { margin: 0; height: 100%; }
+  .app { display: grid; grid-template-columns: 400px 1fr; height: 100vh; }
+  .panel { overflow-y: auto; padding: var(--m-space-md) var(--m-space-md) var(--m-space-3xl); border-right: var(--m-border-hairline) var(--m-hairline); }
+  .panel h1 { margin: var(--m-space-md) 0 var(--m-space-2xs); }
+  .panel .intro { margin: 0 0 var(--m-space-md); color: var(--m-fg-secondary); font-size: 15px; }
+  .group { border-top: var(--m-border-hairline) var(--m-hairline); padding: var(--m-space-sm) 0 var(--m-space-md); }
+  .group > .m-field__label { margin-bottom: var(--m-space-2xs); }
+  .panel .m-field { margin-top: var(--m-space-sm); }
+  .panel .m-input { font-size: 16px; padding: .6rem 0; }
+  .panel textarea.m-input { resize: vertical; min-height: 5.2em; line-height: 1.35; }
+  .panel select.m-input { appearance: none; cursor: pointer; }
+  .panel select.m-input option { background: var(--m-color-ink); }
+  .payoff { display: flex; gap: var(--m-space-sm); align-items: center; margin-top: var(--m-space-2xs); }
+  .payoff .m-pill { flex: none; }
+  .hint { font-size: 13px; color: var(--m-muted); margin: .4rem 0 0; letter-spacing: -0.01em; }
+  .m-chip span { font-size: 14px; padding: .4rem .8rem; }
+  .m-chip input:disabled + span { opacity: .35; cursor: not-allowed; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--m-space-sm); }
+  .rules { list-style: none; margin: 0; padding: 0; font-size: 14px; letter-spacing: -0.01em; }
+  .rules li { display: grid; grid-template-columns: 1.4em 1fr; gap: .3em; padding: .45rem 0; border-bottom: var(--m-border-hairline) var(--m-hairline); }
+  .rules .ok::before { content: "✓"; } .rules .warn::before { content: "!"; font-weight: 700; } .rules .err::before { content: "×"; font-size: 1.2em; line-height: 1; }
+  .rules .warn, .rules .err { color: var(--m-fg); } .rules .ok { color: var(--m-fg-secondary); }
+  .rules .err { font-weight: 600; }
+  .rules small { display: block; color: var(--m-muted); font-weight: 400; }
+  .actions { display: flex; align-items: center; gap: var(--m-space-sm); flex-wrap: wrap; }
+  .actions .m-button { margin: 0; }
+  #status { font-size: 13px; color: var(--m-muted); }
+  .stage { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--m-space-lg); background: #111110; min-width: 0; }
+  .scaler-box { position: relative; }
+  .scaler { transform-origin: 0 0; position: absolute; top: 0; left: 0; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+  #dims { margin-top: var(--m-space-sm); }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; height: auto; } .panel { border-right: 0; } .stage { min-height: 70vh; } }
+</style>
+</head>
+<body class="m-root m-theme-dark">
+<div class="app">
+  <aside class="panel">
+    <a class="m-link m-link--lead m-small" href="../../index.html">Brand system</a>
+    <h1 class="m-h3">Social tiles</h1>
+    <p class="intro">Every option stays inside the kit. Tokens, type, and the wordmark are locked, and the copy is checked against <code>concepts.md</code> as you type.</p>
+
+    <div class="group">
+      <span class="m-field__label">Layout</span>
+      <div class="m-chips" id="layout">
+        <label class="m-chip"><input type="radio" name="layout" value="statement" checked><span>Statement</span></label>
+        <label class="m-chip"><input type="radio" name="layout" value="display"><span>Display</span></label>
+        <label class="m-chip"><input type="radio" name="layout" value="quote"><span>Quote</span></label>
+        <label class="m-chip"><input type="radio" name="layout" value="case"><span>Case study</span></label>
+        <label class="m-chip"><input type="radio" name="layout" value="hero"><span>Hero image</span></label>
+        <label class="m-chip"><input type="radio" name="layout" value="signoff"><span>Sign-off</span></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="m-field__label">Format</span>
+      <div class="m-chips" id="format">
+        <label class="m-chip"><input type="radio" name="format" value="1080x1080" checked><span>Square</span></label>
+        <label class="m-chip"><input type="radio" name="format" value="1080x1350"><span>Portrait</span></label>
+        <label class="m-chip"><input type="radio" name="format" value="1200x627"><span>Link 1200×627</span></label>
+        <label class="m-chip"><input type="radio" name="format" value="1080x1920"><span>Story</span></label>
+      </div>
+      <span class="m-field__label" style="margin-top:var(--m-space-sm)">Theme</span>
+      <div class="m-chips" id="theme">
+        <label class="m-chip"><input type="radio" name="theme" value="dark" checked><span>Ink</span></label>
+        <label class="m-chip"><input type="radio" name="theme" value="paper"><span>Paper</span></label>
+        <label class="m-chip"><input type="radio" name="theme" value="sheet"><span>Sheet</span></label>
+        <label class="m-chip"><input type="radio" name="theme" value="light"><span>Concrete</span></label>
+      </div>
+    </div>
+
+    <div class="group" id="copy">
+      <span class="m-field__label">Copy</span>
+      <label class="m-field" data-for="statement display quote case signoff"><span class="m-field__label">Start from an approved line</span>
+        <select class="m-input" id="approved"><option value="">Choose…</option></select></label>
+      <label class="m-field" data-for="statement display quote case signoff"><span class="m-field__label" id="headline-label">Headline</span>
+        <textarea class="m-input" id="headline" rows="3">It's time you seized an *unfair advantage*.</textarea></label>
+      <div class="payoff" data-for="statement display quote case"><button class="m-pill" type="button" id="payoff-btn" title="Italicize the selected words (⌘I / Ctrl+I)"><em style="font-family:var(--m-font-serif);text-transform:none;font-size:1.15em">I</em> Italic payoff</button>
+        <p class="hint" style="margin:0">Select the words that carry the idea, then click (or press ⌘I). One payoff per tile: a new one replaces the old. Typing *asterisks* works too.</p></div>
+      <label class="m-field" data-for="statement case"><span class="m-field__label">Supporting line (optional)</span>
+        <input class="m-input" id="support" maxlength="140" placeholder="One sentence, max 140 characters"></label>
+      <label class="m-field" data-for="quote"><span class="m-field__label">Name</span>
+        <input class="m-input" id="cite" placeholder="Client name"></label>
+      <label class="m-field" data-for="quote"><span class="m-field__label">Title, company</span>
+        <input class="m-input" id="role" placeholder="Founder, Company"></label>
+      <label class="m-field" data-for="statement display quote case hero"><span class="m-field__label">Kicker (mono meta)</span>
+        <input class="m-input" id="kicker" maxlength="40" value="Meddle · Point of view"></label>
+    </div>
+
+    <div class="group" data-for="case hero">
+      <span class="m-field__label">Image</span>
+      <input type="file" id="image" accept="image/*" class="m-small">
+      <div class="row2" style="margin-top:var(--m-space-2xs)">
+        <label class="m-field"><span class="m-field__label">Focus</span>
+          <select class="m-input" id="focus"><option value="center">Center</option><option value="top">Top</option><option value="bottom">Bottom</option><option value="left">Left</option><option value="right">Right</option></select></label>
+      </div>
+      <p class="hint">Real work or reference imagery only (art-direction.md). Upload from your machine.</p>
+    </div>
+
+    <div class="group" data-for="statement display quote case hero">
+      <span class="m-field__label">Carousel page (optional)</span>
+      <div class="row2">
+        <label class="m-field" style="margin-top:0"><input class="m-input" id="page" inputmode="numeric" maxlength="2" placeholder="Page, e.g. 3"></label>
+        <label class="m-field" style="margin-top:0"><input class="m-input" id="pages" inputmode="numeric" maxlength="2" placeholder="Of, e.g. 6"></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="m-field__label">Kit checks</span>
+      <ul class="rules" id="rules"></ul>
+    </div>
+
+    <div class="actions">
+      <button class="m-pill m-button" id="export" type="button">Export PNG</button>
+      <span id="status"></span>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <div class="scaler-box" id="box"><div class="scaler" id="scaler"><div id="tile" class="tile"></div></div></div>
+    <p class="m-caption" id="dims"></p>
+  </main>
+</div>
+
+<!-- The wordmark, exact paths from brand/assets/logo/meddle-wordmark.svg. Cloned inline into tiles so PNG export keeps it. -->
+<template id="wm-tpl"><svg viewBox="0 0 912.766 199.808" role="img" aria-label="Meddle"><path d="M67.6632 0.000488281C83.593 41.1816 88.4713 88.3735 90.6336 133.983H92.669C94.4976 88.1664 100.09 41.8027 115.139 0.000488281H183.022V199.781H123.394L122.94 79.3171H120.645C117.948 112.611 112.696 145.677 105.102 177.695L104.381 178.076C101.164 177.494 79.1751 178.95 78.2074 177.461C77.5534 176.446 75.3845 165.72 74.904 163.469C68.9846 136.066 65.3074 107.561 62.8449 79.3171H60.0887V199.788H0.687381C0.640666 199.788 0 198.967 0 198.9V0.000488281H67.6632Z"/><path d="M489.867 0H574.494C629.644 3.78684 653.836 52.9223 646.675 120.658C635.804 223.571 549.181 195.707 491.448 199.808C490.988 199.935 489.86 199.394 489.86 198.899L489.867 0ZM552.251 139.252H567.62C588.895 139.252 588.829 84.1988 579.506 68.8043C576.476 63.8086 570.189 60.5294 565.324 60.5294H552.251V139.252Z"/><path d="M327.04 199.781V0H411.207C454.218 2.87853 482.22 33.8011 484.396 90.1696C486.818 153.277 465.53 193.623 414.871 199.18C385.634 200.462 356.31 199.454 327.04 199.781ZM389.418 139.252H404.78C425.055 139.252 424.721 88.914 418.401 73.0453C415.311 65.2779 408.885 60.5294 402.031 60.5294H389.418V139.252Z"/><path d="M321.536 0V63.4613H250.903V84.0185H316.952V113.398H250.903V135.739H320.849C320.902 135.739 321.543 136.553 321.543 136.607V198.899C321.543 198.953 320.902 199.781 320.849 199.781H189.206C189.16 199.781 188.519 198.946 188.519 198.899V0H321.536Z"/><path d="M912.766 0V63.4613H842.593V84.0185H907.954C908.008 84.0185 908.648 84.84 908.648 84.9134V113.405H842.593V135.745H912.766V199.788H780.209V0H912.766Z"/><path d="M715.999 0V135.732H774.719V199.781H653.614V0H715.999Z"/></svg></template>
+
+<script src="../../brand/verbal/lexicon.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js"></script>
+<script src="tiles.js"></script>
+</body>
+</html>

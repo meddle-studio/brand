@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>With and Without the Kit | Meddle</title>
+<meta name="description" content="The same prompt, the same model. Without a brand system an agent makes reasonable guesses. With Meddle's agentic brand system, every choice has a reason on file.">
+<link rel="icon" href="../../brand/assets/logo/meddle-icon-512.png">
+<link rel="stylesheet" href="../../brand/visual/fonts.css">
+<link rel="stylesheet" href="../../brand/visual/tokens.css">
+<link rel="stylesheet" href="../../components/components.css">
+<style>
+  html, body { margin: 0; }
+  .hero { padding-top: var(--m-space-3xl); padding-bottom: var(--m-space-2xl); }
+  .hero .m-h1 { max-width: 16ch; margin-top: var(--m-space-md); }
+  .hero .m-body-lg { max-width: 34em; margin-top: var(--m-space-lg); color: var(--m-fg-secondary); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--m-space-lg); align-items: end; margin-bottom: var(--m-space-lg); }
+  .controls .m-chips { margin-top: var(--m-space-2xs); }
+  .prompt { border-top: var(--m-border-rule) var(--m-rule); border-bottom: var(--m-border-rule) var(--m-rule); padding: var(--m-space-sm) 0; margin-bottom: var(--m-space-xl); display: grid; grid-template-columns: 9rem 1fr; gap: var(--m-space-sm) var(--m-space-md); }
+  .prompt code { font-family: var(--m-font-mono); font-size: 15px; letter-spacing: 0; }
+  .prompt p { margin: 0; }
+  .route { font-family: var(--m-font-mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0; color: var(--m-muted-small); line-height: 1.7; }
+  .compare { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--m-space-xl); align-items: start; }
+  .output { border: var(--m-border-hairline) var(--m-hairline); background: var(--m-hairline); max-height: 82vh; overflow: auto; position: sticky; top: 90px; }
+  .output img { display: block; width: 100%; height: auto; }
+  .post { background: var(--m-color-sheet); color: var(--m-color-ink); padding: var(--m-space-lg); }
+  .post .who { font-family: var(--m-font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0; color: rgba(26,25,24,.65); margin: 0 0 var(--m-space-md); }
+  .post .text { white-space: pre-wrap; font-size: 18px; line-height: 1.5; font-weight: 400; letter-spacing: -0.02em; margin: 0; }
+  .notes h2 { margin: 0 0 var(--m-space-2xs); }
+  .notes .sub { margin: 0 0 var(--m-space-md); color: var(--m-fg-secondary); }
+  .items { list-style: none; margin: 0; padding: 0; }
+  .items li { display: grid; grid-template-columns: 1.6em 1fr; gap: 0 .4em; padding: var(--m-space-sm) 0; border-bottom: var(--m-border-rule) var(--m-rule); }
+  .items li::before { font-size: 1.3em; line-height: 1.1; color: var(--m-muted); }
+  .items.guessed li::before { content: "×"; }
+  .items.decided li::before { content: "→"; }
+  .items .file { grid-column: 2; font-family: var(--m-font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0; color: var(--m-muted-small); }
+  .items .did { grid-column: 2; margin: .3em 0 0; font-size: 18px; font-weight: 500; line-height: 1.35; }
+  .items .rule { grid-column: 2; margin: .35em 0 0; font-size: 16px; color: var(--m-fg-secondary); line-height: 1.4; }
+  .honest { margin-top: var(--m-space-2xl); }
+  .honest p { max-width: 42em; }
+  @media (max-width: 991.98px) { .compare { grid-template-columns: 1fr; } .output { position: static; max-height: 70vh; } .prompt { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="m-root m-theme-dark">
+
+<header class="m-topbar">
+  <a class="m-wordmark m-wordmark--corner" href="../../index.html" aria-label="Meddle brand system"><svg viewBox="0 0 912.766 199.808" role="img" aria-label="Meddle"><path d="M67.6632 0.000488281C83.593 41.1816 88.4713 88.3735 90.6336 133.983H92.669C94.4976 88.1664 100.09 41.8027 115.139 0.000488281H183.022V199.781H123.394L122.94 79.3171H120.645C117.948 112.611 112.696 145.677 105.102 177.695L104.381 178.076C101.164 177.494 79.1751 178.95 78.2074 177.461C77.5534 176.446 75.3845 165.72 74.904 163.469C68.9846 136.066 65.3074 107.561 62.8449 79.3171H60.0887V199.788H0.687381C0.640666 199.788 0 198.967 0 198.9V0.000488281H67.6632Z"/><path d="M489.867 0H574.494C629.644 3.78684 653.836 52.9223 646.675 120.658C635.804 223.571 549.181 195.707 491.448 199.808C490.988 199.935 489.86 199.394 489.86 198.899L489.867 0ZM552.251 139.252H567.62C588.895 139.252 588.829 84.1988 579.506 68.8043C576.476 63.8086 570.189 60.5294 565.324 60.5294H552.251V139.252Z"/><path d="M327.04 199.781V0H411.207C454.218 2.87853 482.22 33.8011 484.396 90.1696C486.818 153.277 465.53 193.623 414.871 199.18C385.634 200.462 356.31 199.454 327.04 199.781ZM389.418 139.252H404.78C425.055 139.252 424.721 88.914 418.401 73.0453C415.311 65.2779 408.885 60.5294 402.031 60.5294H389.418V139.252Z"/><path d="M321.536 0V63.4613H250.903V84.0185H316.952V113.398H250.903V135.739H320.849C320.902 135.739 321.543 136.553 321.543 136.607V198.899C321.543 198.953 320.902 199.781 320.849 199.781H189.206C189.16 199.781 188.519 198.946 188.519 198.899V0H321.536Z"/><path d="M912.766 0V63.4613H842.593V84.0185H907.954C908.008 84.0185 908.648 84.84 908.648 84.9134V113.405H842.593V135.745H912.766V199.788H780.209V0H912.766Z"/><path d="M715.999 0V135.732H774.719V199.781H653.614V0H715.999Z"/></svg></a>
+  <a class="m-pill" href="https://meddle.studio/contact/">Book an intro call</a>
+</header>
+
+<section class="hero m-container">
+  <span class="m-label m-muted">An experiment · 30 September 2026</span>
+  <h1 class="m-h1">Same prompt. Same model. Only one is <em>Meddle</em>.</h1>
+  <p class="m-body-lg">We gave two AI agents the same request. One got a one-line brief. The other got Meddle's agentic brand system, the files our own team builds from. Neither output was edited. Toggle between them and see which decisions the kit made.</p>
+</section>
+
+<section class="m-section m-theme-light" data-scroll-theme="light" style="padding-top:var(--m-space-2xl)">
+  <div class="m-container">
+    <div class="controls">
+      <div><span class="m-field__label">The request</span>
+        <div class="m-chips" id="example">
+          <label class="m-chip"><input type="radio" name="example" value="landing" checked><span>Landing section</span></label>
+          <label class="m-chip"><input type="radio" name="example" value="linkedin"><span>LinkedIn post</span></label>
+        </div></div>
+      <div><span class="m-field__label">The agent had</span>
+        <div class="m-chips" id="mode">
+          <label class="m-chip"><input type="radio" name="mode" value="without" checked><span>Without the kit</span></label>
+          <label class="m-chip"><input type="radio" name="mode" value="with"><span>With the kit</span></label>
+        </div></div>
+    </div>
+
+    <div class="prompt">
+      <span class="m-label m-muted">Prompt</span><p><code id="prompt-text"></code></p>
+      <span class="m-label m-muted" id="context-label">Context</span><p class="route" id="context"></p>
+    </div>
+
+    <div class="compare">
+      <div class="output" id="output" tabindex="0" aria-live="polite"></div>
+      <div class="notes">
+        <h2 class="m-h3" id="notes-title"></h2>
+        <p class="sub m-small" id="notes-sub"></p>
+        <ul class="items" id="items"></ul>
+      </div>
+    </div>
+
+    <div class="honest">
+      <span class="m-label m-muted">Why the baseline matters</span>
+      <p class="m-body" style="margin-top:var(--m-space-sm)">The version without the kit is good work, and that's the point. A capable agent makes reasonable, generic choices: an accent color, rounded cards, a flourish on every headline, a pitch in every post. None of it is wrong. None of it is Meddle. The kit replaces those guesses with decisions that have a reason on file, so the next page, deck, or post comes out on brand without anyone re-explaining the brand.</p>
+      <p class="m-small m-secondary">Both outputs were generated with Claude on 30 September 2026 and are unedited. Raw files: <code>evals/runs/2026-09-30-without-kit/</code> and <code>evals/runs/2026-09-30-fresh-agent-2/</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="m-cta-band m-theme-dark" data-scroll-theme="dark">
+  <span class="m-label">Want a brand your team and your tools can build from?</span>
+  <a class="m-pill m-cta" href="https://meddle.studio/contact/">Book an intro call</a>
+</section>
+
+<footer class="m-theme-dark">
+  <div class="m-container m-footer">
+    <ul><li><a class="m-link m-link--lead" href="../../index.html">Brand system</a></li><li><a class="m-link m-link--lead m-link--external" href="https://meddle.studio">meddle.studio</a></li></ul>
+    <span class="m-signoff">Fortune favors the daring.</span>
+    <span class="m-footer__legal">© Meddle 2026</span>
+  </div>
+</footer>
+
+<script>
+const POSTS = {"without": "\"Good enough\" branding is the most expensive line item a B2B SaaS company never sees on a budget.\n\nNobody signs off on it. It just happens. A founder makes a logo on a weekend, the first designer picks a blue, the website gets rebuilt twice by whoever has time, and three years later you're a Series B company that looks like a seed-stage one.\n\nIt feels free because there's no invoice. But you're paying for it every week:\n\n→ In sales cycles. When your product is better but your brand looks smaller, buyers read that as risk. Your reps spend the first call proving you're real instead of proving you're right.\n\n→ In pricing. It's hard to charge enterprise prices from a site that looks like a side project. The brand sets the anchor before anyone sees a demo.\n\n→ In marketing spend. If people can't remember you after an ad, a conference booth, or a webinar, you have to pay to reach them again. Forgettable is a recurring cost.\n\n→ In hiring. Senior people check you out before they reply. A brand that looks unsure makes the company look unsure.\n\n→ In your team's time. Without a real system, every deck, landing page, and one-pager starts from scratch, and every one of them drifts a little further from the last.\n\nNone of these show up as \"branding\" on a P&L. They show up as longer deals, softer pricing, higher CAC, and a lot of hours spent reinventing the same slide.\n\nThe fix isn't a six-month rebrand with a traditional agency. For most SaaS teams, it's making a clear set of decisions once, building them into a system people can actually use, and then getting back to work.\n\nThat's why we built Brand Sprints at Meddle: a complete visual identity in two weeks, for a flat $30K. Fixed scope, fixed price, done.\n\n\"Good enough\" costs more than that. It just sends the bill in pieces.\n\nIf your brand is starting to look smaller than your company, I'm happy to talk it through: meddle.studio", "with": "\"Good enough\" is the most expensive brand decision a B2B SaaS company makes. It just never shows up as a line item.\n\nIt shows up in the pipeline, and it rarely sounds like a brand problem. It sounds like: \"We need more sales, but nobody understands what we do.\"\n\nYour AE spends the first call explaining what the company does, because the website didn't. Every rep rebuilds the deck their own way, so the story changes with whoever's telling it.\n\nNext to a competitor that looks more established, you're the risky choice. So you discount to close a gap your brand opened.\n\nNone of that gets booked as \"brand.\" It gets booked as longer sales cycles, lower win rates, and smaller deals.\n\nWhat I'd tell any B2B SaaS founder: good enough isn't the cheap option. Clarity is. A story that says what you do in one sentence, and an identity that looks like the company you're becoming, not the one you were at seed."};
+const DATA = {
+  landing: {
+    prompt: 'Build a single-file HTML landing section announcing Brand Sprints.',
+    without: {
+      context: '+ A one-line brief: “Meddle is a brand and design studio (meddle.studio), founded by Matt Bacon. Brand Sprints: a complete visual identity in two weeks for a flat $30K.”',
+      img: 'assets/landing-without.jpg', alt: 'Landing section built without the kit: beige background, orange accents, rounded cards, typed lowercase logo.',
+      title: 'The agent guessed', sub: 'Six reasonable choices, each one a guess. Here’s what the kit would have said instead.',
+      items: [
+        ['brandmark.md', 'Typed the logo as “meddle.” with an orange dot.', 'The wordmark is one SVG, at one proportion, and is never typed out in a font.'],
+        ['color.md', 'Brought in an orange accent, a warm beige ground, and a full orange CTA band.', 'Monochrome. Color is earned by imagery, not by the interface.'],
+        ['magic_trick.md', 'Stacked italic flourishes and a strikethrough across two screens.', 'One interference per surface. Two compete and neither lands.'],
+        ['layout.md', 'Rounded the corners of the cards.', 'Pills are actions. Squares are content. No in-between radii.'],
+        ['concepts.md', 'Wrote “Book a sprint.”', '“Book an intro call,” said the same way everywhere.'],
+        ['facts.md', 'Invented a ten-day schedule and a “six months” comparison.', 'Never state a fact that isn’t on file. The foil is $80K–$500K+ and 3–9 months.'],
+      ],
+    },
+    with: {
+      context: '+ The kit. It read: AGENTS.md → magic_trick.md → README routing (“A web page or landing section”) → landing-page.md → components → layout.md → messaging.md → facts.md → brandmark.md',
+      img: 'assets/landing-with.jpg', alt: 'Landing section built with the kit: ink hero, the SVG wordmark in the corner, concrete body with arrow lists, ink CTA band.',
+      title: 'The kit decided', sub: 'Every choice below traces to a file, and to the reason written next to it.',
+      items: [
+        ['magic_trick.md', 'The italic “And” carries the hero. Every other headline stays plain.', 'One interference per surface: about 90% discipline, 10% meddling.'],
+        ['messaging.md', 'Reused the live lines: “Fast. Cheap. And Good.”, the aside, “No guesswork. No haggling.”', 'When an approved line fits, use it. Repetition is how a brand becomes recognizable.'],
+        ['color.md', 'Ink hero, concrete body, ink close.', 'Open dark, work light, close dark.'],
+        ['brandmark.md', 'The SVG wordmark, small, in the corner.', 'Corner or edge to edge. Never floating in between.'],
+        ['graphic-elements.md', 'Arrow lists for what’s included, crosses for the traditional agency, numbered rows for the offers.', 'The arrow means “included.” The cross marks the other model. Rules, not boxes.'],
+        ['facts.md', '$30K, two weeks, $80K–$500K+, 3–9 months, all from the facts file.', 'Numbers come only from facts.md. No invented process.'],
+      ],
+    },
+  },
+  linkedin: {
+    prompt: 'Write a LinkedIn post from Matt’s account about why “good enough” branding is expensive for B2B SaaS.',
+    without: {
+      context: '+ The same one-line brief.',
+      post: 'without',
+      title: 'The agent guessed', sub: 'Strong writing, and a very different post from the one the kit asks for.',
+      items: [
+        ['voice-and-tone.md', 'Pitched Brand Sprints and the $30K price inside a point-of-view post.', 'Leave prices out of thought-leadership posts. State them when the piece is about hiring Meddle.'],
+        ['voice-and-tone.md', 'Switched from “we built” to “I’m happy to talk.”', 'Don’t mix “we” and “I” in one piece. Matt’s account is “I.”'],
+        ['linkedin-post.md', '343 words and five bulleted arguments.', 'A claim that stands alone, 2–4 short lines of reasoning, and one concrete example.'],
+        ['linkedin-post.md', 'Closed with a link and an invitation.', 'Close with the takeaway, not a call to action. Point-of-view posts don’t need one.'],
+      ],
+    },
+    with: {
+      context: '+ The kit. It read: AGENTS.md → magic_trick.md → README routing (“A LinkedIn post, email, or proposal”) → linkedin-post.md → voice-and-tone.md → concepts.md → facts.md',
+      post: 'with',
+      title: 'The kit decided', sub: '164 words, no pitch, and every choice on file.',
+      items: [
+        ['linkedin-post.md', 'The reframe shape: a claim that works before “…see more,” the reasoning, then the takeaway.', 'Lead with a claim that challenges a category default.'],
+        ['messaging.md', 'Used the SaaS problem in the client’s own words: “We need more sales, but nobody understands what we do.”', 'Open segment conversations with the approved problem framing.'],
+        ['voice-and-tone.md', '“I” throughout, because it’s Matt’s account. No price and no pitch.', 'Senior, not stuffy. Say the business thing.'],
+        ['concepts.md', '“Brand,” not “branding,” in Meddle’s own voice.', '“Branding” is allowed in the core belief and in search terms, not in our copy.'],
+      ],
+    },
+  },
+};
+const $ = (s) => document.querySelector(s);
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const state = { example: 'landing', mode: 'without' };
+function render() {
+  const ex = DATA[state.example], d = ex[state.mode];
+  $('#prompt-text').textContent = ex.prompt;
+  $('#context').textContent = d.context;
+  const out = $('#output'); out.scrollTop = 0;
+  out.innerHTML = d.img
+    ? `<img src="${d.img}" alt="${esc(d.alt)}">`
+    : `<div class="post"><p class="who">Matt Bacon · Founder & Creative Director, Meddle</p><p class="text">${esc(POSTS[d.post])}</p></div>`;
+  $('#notes-title').textContent = d.title;
+  $('#notes-sub').textContent = d.sub;
+  const list = $('#items'); list.className = 'items ' + (state.mode === 'with' ? 'decided' : 'guessed');
+  list.innerHTML = d.items.map(([file, did, rule]) => `<li><span class="file">${esc(file)}</span><p class="did">${esc(did)}</p><p class="rule">${state.mode === 'with' ? 'Why: ' : 'The kit: '}${esc(rule)}</p></li>`).join('');
+}
+document.querySelectorAll('input[name=example], input[name=mode]').forEach((i) => i.addEventListener('change', () => { state[i.name] = i.value; render(); }));
+render();
+</script>
+<script src="../../components/components.js"></script>
+</body>
+</html>

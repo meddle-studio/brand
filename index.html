@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meddle Brand System</title>
+<meta name="description" content="The agentic brand system for Meddle, a brand and design studio for industry challengers.">
+<link rel="icon" href="brand/assets/logo/meddle-icon-512.png">
+<link rel="stylesheet" href="brand/visual/fonts.css">
+<link rel="stylesheet" href="brand/visual/tokens.css">
+<link rel="stylesheet" href="components/components.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { overscroll-behavior: none; }
+  a { color: inherit; }
+  code, .code { font-family: var(--m-font-mono); font-size: .82em; letter-spacing: 0; }
+  p { margin: 0 0 1em; }
+
+  /* Hero */
+
+  /* Cover: the kit opens like a document (deck cover language), not like meddle.studio */
+  .cap-payoff { text-transform: none; font-size: 1.2em; } /* italic payoff inside an uppercase mono caption stays lowercase */
+  .cover { min-height: 100svh; display: flex; flex-direction: column; padding: var(--m-space-sm) var(--m-space-sm) 0; }
+  .cover__head { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--m-space-sm); align-items: start; }
+  .cover__wm { width: clamp(150px, 22vw, 360px); color: var(--m-fg); line-height: 0; }
+  .cover__wm svg { display: block; width: 100%; height: auto; fill: currentColor; }
+  .cover__meta { font-family: var(--m-font-mono); font-size: var(--m-type-label-size); line-height: 1.3; text-transform: uppercase; letter-spacing: 0; color: var(--m-muted-small); padding-top: .3em; }
+  .cover__meta--end { display: flex; justify-content: space-between; gap: var(--m-space-sm); }
+  .cover__rule { border: 0; border-top: var(--m-border-rule) var(--m-rule); margin: var(--m-space-md) 0 0; }
+  .cover__title { flex: 1; display: flex; flex-direction: column; justify-content: center; margin: 0; padding: var(--m-space-xl) 0 var(--m-space-lg); font-size: clamp(84px, 17vw, 320px); font-weight: 900; line-height: .92; letter-spacing: -0.045em; }
+  .cover__title em { padding-left: .02em; }
+  .cover__index { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: var(--m-border-rule) var(--m-rule); margin: 0 calc(-1 * var(--m-space-sm)); }
+  .cover__index a { display: block; padding: var(--m-space-sm) var(--m-space-lg) var(--m-space-xl) var(--m-space-sm); border-left: var(--m-border-rule) var(--m-rule); color: inherit; text-decoration: none; transition: background-color var(--m-duration-quick) var(--m-ease-standard); }
+  .cover__index a:first-child { border-left-color: transparent; }
+  .cover__index a:hover { background: var(--m-hairline); }
+  .cover__index .num { font-family: var(--m-font-mono); font-size: var(--m-type-label-size); color: var(--m-muted-small); }
+  .cover__index strong { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; margin: .5rem 0 .3rem; }
+  .cover__index span.desc { display: block; font-size: 16px; line-height: 1.35; color: var(--m-fg-secondary); letter-spacing: -0.02em; }
+  .kit-nav { position: sticky; top: 0; z-index: var(--m-z-nav); padding: var(--m-space-2xs) var(--m-space-sm); }
+  @media (max-width: 991.98px) { .cover__index { grid-template-columns: 1fr 1fr; } .cover__index a:nth-child(3) { border-left-color: transparent; } }
+  @media (max-width: 767.98px) { .cover__head { grid-template-columns: 1fr 1fr; } .cover__head .cover__wm { grid-column: 1 / -1; } .cover__index { grid-template-columns: 1fr; } .cover__index a { border-left-color: transparent; border-top: var(--m-border-rule) var(--m-rule); } }
+  /* Homepage hero demo (Components): .m-hero inside its own scroll frame */
+  .hero-demo { height: 460px; overflow-y: auto; border: var(--m-border-hairline) var(--m-hairline); position: relative; scrollbar-width: thin; }
+  .hero-demo .m-hero { height: 460px; min-height: 0; }
+  .hero-demo__after { height: 640px; padding: var(--m-space-lg); }
+  .statement-wrap { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: var(--m-space-3xl) var(--m-layout-gutter); }
+  .statement-wrap .m-statement { max-width: 1100px; }
+
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-top: var(--m-border-hairline) var(--m-hairline); padding-top: var(--m-space-sm); margin-bottom: var(--m-space-xl); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--m-space-lg); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--m-space-lg); }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--m-space-lg); }
+  @media (max-width: 991.98px) { .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 767.98px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  .stack > * + * { margin-top: var(--m-space-xl); }
+  .sub { margin: var(--m-space-2xl) 0 var(--m-space-md); }
+  .file { font-family: var(--m-font-mono); letter-spacing: 0; font-size: 12px; text-transform: uppercase; color: var(--m-muted); text-decoration: none; }
+  .file:hover { color: var(--m-fg); }
+
+  /* Trick table */
+  .trick { width: 100%; border-collapse: collapse; }
+  .trick th, .trick td { text-align: left; vertical-align: top; padding: 1rem 1rem 1rem 0; border-bottom: var(--m-border-rule) var(--m-rule); font-weight: 400; }
+  .trick th { font-family: var(--m-font-mono); letter-spacing: 0; font-size: 12px; text-transform: uppercase; color: var(--m-muted); font-weight: 400; }
+  .trick td:first-child { font-weight: 600; width: 16%; }
+  @media (max-width: 767.98px) { .trick td:nth-child(2), .trick th:nth-child(2) { display: none; } }
+
+  /* Color */
+  .swatch { border-top: var(--m-border-rule) var(--m-rule); padding-top: var(--m-space-sm); }
+  .swatch .chip { aspect-ratio: 4 / 3; margin-bottom: var(--m-space-sm); border: var(--m-border-hairline) var(--m-hairline); }
+  .swatch h4 { margin: 0 0 .25em; font-size: 1.2rem; font-weight: 600; }
+  .swatch p { font-size: 1rem; color: var(--m-fg-secondary); margin: 0; font-weight: 500; }
+  .themes { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .themes > div { padding: var(--m-space-lg); min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }
+  @media (max-width: 767.98px) { .themes { grid-template-columns: 1fr; } }
+
+  /* Type */
+  .specimen { border-top: var(--m-border-rule) var(--m-rule); padding: var(--m-space-md) 0 var(--m-space-xl); display: grid; grid-template-columns: 220px 1fr; gap: var(--m-space-lg); }
+  @media (max-width: 767.98px) { .specimen { grid-template-columns: 1fr; gap: var(--m-space-2xs); } }
+
+  /* Brandmark */
+  .mark-tile { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; padding: 8%; overflow: hidden; }
+  .mark-tile svg { width: 100%; height: auto; fill: currentColor; display: block; }
+  .mark-tile.corner { align-items: flex-start; justify-content: flex-start; padding: 16px; }
+  .mark-tile.corner svg { width: 26%; }
+  .mark-tile.bleed { padding: 12px; }
+  .mark-tile.bad { position: relative; }
+  .mark-tile.bad::after { content: "×"; position: absolute; top: 8px; right: 14px; font-size: 32px; line-height: 1; color: var(--m-muted); }
+
+  /* Art direction */
+  .ad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .ad-grid figure { margin: 0; }
+  .ad-grid img { width: 100%; aspect-ratio: 5 / 6; object-fit: cover; display: block; }
+  .ad-grid figcaption { padding: .6rem 0 1rem; }
+  @media (max-width: 767.98px) { .ad-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* Motion demos */
+  .ease-demo { height: 4px; background: var(--m-hairline); position: relative; margin: 1rem 0 .5rem; }
+  .ease-demo span { position: absolute; left: 0; top: -6px; width: 16px; height: 16px; border-radius: 50%; background: var(--m-fg); }
+  .motion-card:hover .ease-demo span { left: calc(100% - 16px); }
+  .motion-card { border-top: var(--m-border-rule) var(--m-rule); padding-top: var(--m-space-sm); cursor: default; }
+
+  /* Deck preview */
+  .deck-frame { width: 100%; aspect-ratio: 16 / 9.4; border: 0; display: block; background: #0e0e0d; }
+
+  /* Routing */
+  .route { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--m-space-md); padding: 1rem 0; border-bottom: var(--m-border-rule) var(--m-rule); }
+  .route a { text-decoration: none; }
+  .route .files { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+  @media (max-width: 767.98px) { .route { grid-template-columns: 1fr; gap: .5rem; } }
+
+
+  /* Source reader: renders the kit's real markdown (live over http, bundled kit-data.js offline) */
+  .reader { position: fixed; inset: 0; z-index: 2000; background: rgba(26,25,24,.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); padding: 24px; }
+  .reader[hidden] { display: none; }
+  .reader__panel { height: 100%; display: grid; grid-template-columns: 270px minmax(0, 1fr); overflow: hidden; }
+  .reader__nav { overflow-y: auto; padding: var(--m-space-md); border-right: var(--m-border-rule) var(--m-rule); }
+  .reader__nav h4 { font-family: var(--m-font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--m-muted-small); font-weight: 400; margin: var(--m-space-md) 0 .4rem; }
+  .reader__nav a { display: block; padding: .28rem 0; font-size: 15px; text-decoration: none; color: var(--m-fg-secondary); }
+  .reader__nav a.is-current { color: var(--m-fg); font-weight: 600; }
+  .reader__doc { overflow-y: auto; padding: 0 var(--m-space-xl) var(--m-space-3xl); }
+  .reader__bar { position: sticky; top: 0; z-index: 1; background: var(--m-bg); display: flex; gap: var(--m-space-md); align-items: center; padding: var(--m-space-sm) 0; border-bottom: var(--m-border-hairline) var(--m-hairline); margin-bottom: var(--m-space-lg); }
+  .reader__bar #reader-close { margin-left: auto; }
+  .md { max-width: 50em; font-size: 17px; line-height: 1.55; font-weight: 400; letter-spacing: -0.02em; }
+  .md h1 { font-size: 44px; font-weight: 800; letter-spacing: -0.042em; line-height: 1.05; margin: 0 0 var(--m-space-md); }
+  .md h2 { font-size: 28px; font-weight: 600; letter-spacing: -0.042em; margin: var(--m-space-xl) 0 var(--m-space-2xs); padding-top: var(--m-space-sm); border-top: var(--m-border-rule) var(--m-rule); }
+  .md h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.03em; margin: var(--m-space-lg) 0 .3rem; }
+  .md p, .md ul, .md ol { margin: 0 0 .9em; }
+  .md li { margin-bottom: .3em; }
+  .md table { border-collapse: collapse; width: 100%; font-size: 15px; margin: var(--m-space-sm) 0 var(--m-space-md); }
+  .md th { font-family: var(--m-font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; font-weight: 400; color: var(--m-muted-small); text-align: left; }
+  .md th, .md td { padding: .55rem .9rem .55rem 0; border-bottom: var(--m-border-hairline) var(--m-rule); vertical-align: top; }
+  .md code { font-family: var(--m-font-mono); font-size: .84em; letter-spacing: 0; background: var(--m-hairline); padding: .05em .3em; }
+  .md pre { background: var(--m-hairline); padding: var(--m-space-sm); overflow-x: auto; }
+  .md pre code { background: none; padding: 0; }
+  .md blockquote { margin: 0 0 1em; padding-left: var(--m-space-sm); border-left: var(--m-border-rule) var(--m-rule); color: var(--m-fg-secondary); }
+  .md a { color: inherit; }
+  .md hr { border: 0; border-top: var(--m-border-hairline) var(--m-hairline); margin: var(--m-space-lg) 0; }
+  @media (max-width: 767.98px) { .reader { padding: 0; } .reader__panel { grid-template-columns: 1fr; } .reader__nav { display: none; } .reader__doc { padding: 0 var(--m-space-md) var(--m-space-2xl); } }
+</style>
+</head>
+<body class="m-root m-theme-dark">
+
+<!-- The wordmark (exact paths from brand/assets/logo/meddle-wordmark.svg). One proportion: 4.56:1. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wm" viewBox="0 0 912.766 199.808"><path d="M67.6632 0.000488281C83.593 41.1816 88.4713 88.3735 90.6336 133.983H92.669C94.4976 88.1664 100.09 41.8027 115.139 0.000488281H183.022V199.781H123.394L122.94 79.3171H120.645C117.948 112.611 112.696 145.677 105.102 177.695L104.381 178.076C101.164 177.494 79.1751 178.95 78.2074 177.461C77.5534 176.446 75.3845 165.72 74.904 163.469C68.9846 136.066 65.3074 107.561 62.8449 79.3171H60.0887V199.788H0.687381C0.640666 199.788 0 198.967 0 198.9V0.000488281H67.6632Z"/><path d="M489.867 0H574.494C629.644 3.78684 653.836 52.9223 646.675 120.658C635.804 223.571 549.181 195.707 491.448 199.808C490.988 199.935 489.86 199.394 489.86 198.899L489.867 0ZM552.251 139.252H567.62C588.895 139.252 588.829 84.1988 579.506 68.8043C576.476 63.8086 570.189 60.5294 565.324 60.5294H552.251V139.252Z"/><path d="M327.04 199.781V0H411.207C454.218 2.87853 482.22 33.8011 484.396 90.1696C486.818 153.277 465.53 193.623 414.871 199.18C385.634 200.462 356.31 199.454 327.04 199.781ZM389.418 139.252H404.78C425.055 139.252 424.721 88.914 418.401 73.0453C415.311 65.2779 408.885 60.5294 402.031 60.5294H389.418V139.252Z"/><path d="M321.536 0V63.4613H250.903V84.0185H316.952V113.398H250.903V135.739H320.849C320.902 135.739 321.543 136.553 321.543 136.607V198.899C321.543 198.953 320.902 199.781 320.849 199.781H189.206C189.16 199.781 188.519 198.946 188.519 198.899V0H321.536Z"/><path d="M912.766 0V63.4613H842.593V84.0185H907.954C908.008 84.0185 908.648 84.84 908.648 84.9134V113.405H842.593V135.745H912.766V199.788H780.209V0H912.766Z"/><path d="M715.999 0V135.732H774.719V199.781H653.614V0H715.999Z"/></symbol>
+</svg>
+
+<!-- ============ COVER (paper). Opens like a document, per the deck rules. Interference: scale of the title. ============ -->
+<header class="cover m-theme-paper" id="top">
+  <div class="cover__head">
+    <div class="cover__wm"><svg viewBox="0 0 912.766 199.808" role="img" aria-label="Meddle"><use href="#wm"/></svg></div>
+    <div class="cover__meta">Meddle<br>Brand system</div>
+    <div class="cover__meta" id="cover-version">v1.4<br>Updated 30 Sep 2026</div>
+    <div class="cover__meta cover__meta--end"><span>Fortune favors<br>the daring</span><span>00</span></div>
+  </div>
+  <hr class="cover__rule">
+  <h1 class="cover__title">Brand <em>System</em></h1>
+  <nav class="cover__index" aria-label="Start here">
+    <a href="#trick"><span class="num">01</span><strong>The magic trick</strong><span class="desc">The status quo, interfered with. Read this first.</span></a>
+    <a href="#verbal"><span class="num">02</span><strong>Verbal</strong><span class="desc">Positioning, voice, vocabulary, approved lines.</span></a>
+    <a href="#visual"><span class="num">03</span><strong>Visual</strong><span class="desc">Color, type, the wordmark, art direction, motion.</span></a>
+    <a href="#templates"><span class="num">04</span><strong>Build</strong><span class="desc">Components, the deck, social tiles, recipes.</span></a>
+  </nav>
+</header>
+<nav class="kit-nav" aria-label="Sections" data-autohide data-autohide-after=".cover" data-scrollspy>
+  <ul class="m-nav">
+    <li><a class="m-pill is-active" href="#top" aria-current="true">Cover</a></li>
+    <li><a class="m-pill" href="#trick">Magic Trick</a></li>
+    <li><a class="m-pill" href="#verbal">Verbal</a></li>
+    <li><a class="m-pill" href="#visual">Visual</a></li>
+    <li><a class="m-pill" href="#components">Components</a></li>
+    <li><a class="m-pill" href="#templates">Templates</a></li>
+    <li class="m-nav__end"><a class="m-pill" href="#files">Files</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ============ STATEMENT ============ -->
+<section class="statement-wrap" id="trick-intro">
+  <h2 class="m-statement m-reveal">One source of truth for designers, collaborators, and agents. Every rule says what, <em>why</em>, and&nbsp;where.</h2>
+</section>
+
+<!-- ============ MAGIC TRICK ============ -->
+<section id="trick" class="m-section" data-scroll-theme="light">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">01 · Read first</span><a class="file" href="brand/magic_trick.md">brand/magic_trick.md ↗</a></div>
+    <h2 class="m-h1" style="max-width:14ch">The status quo, <em>interfered&nbsp;with</em>.</h2>
+    <div class="grid-2" style="margin-top:var(--m-space-xl)">
+      <p class="m-body-lg">Every Meddle surface has two forces: <strong>the status quo, done exceptionally</strong> (heavy Inter, ink, a strict grid, hairline rules, mono labels) and <strong>one interference</strong>, a single deliberate break that makes it Meddle.</p>
+      <p class="m-body-lg m-secondary">About 90% discipline, 10% meddling. One interference per surface. Two compete and neither lands. Zero, and it's just another competent studio.</p>
+    </div>
+    <table class="trick" style="margin-top:var(--m-space-2xl)">
+      <thead><tr><th>Surface</th><th>The discipline</th><th>The interference</th></tr></thead>
+      <tbody>
+        <tr><td>Headline</td><td>Heavy Inter, tight tracking</td><td>One word in Libre Baskerville italic: "Executive <em>Summary</em>"</td></tr>
+        <tr><td>Sales copy</td><td>Plain claims, real prices</td><td>One wink: "Fast. Cheap. <em>And</em> Good."</td></tr>
+        <tr><td>Wordmark</td><td>Heavy caps, tightly fitted</td><td>Scale: edge to edge, bleeding off the card, filling a stage</td></tr>
+        <tr><td>Web page</td><td>Monochrome, gridded, calm</td><td>Material: one loop of glass, chrome, or liquid behind the type</td></tr>
+        <tr><td>Case study</td><td>Straight narrative</td><td>One reframe: "The category sells management. Armor Bands sells reclamation."</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ VERBAL ============ -->
+<section id="verbal" class="m-section">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">02 · Verbal</span><a class="file" href="brand/verbal/positioning.md">brand/verbal/ ↗</a></div>
+    <div class="grid-2">
+      <div>
+        <p class="m-label m-muted" style="margin-bottom:1rem">Positioning</p>
+        <h2 class="m-h2">A brand and design studio for industry challengers.</h2>
+      </div>
+      <div class="stack">
+        <div><p class="m-label m-muted" style="margin-bottom:.6rem">Promise</p><p class="m-h3" style="font-weight:500">It's time you seized an <em>unfair advantage</em>.</p></div>
+        <div><p class="m-label m-muted" style="margin-bottom:.6rem">Core belief</p><p class="m-h3" style="font-weight:500">Businesses don't buy "branding." They buy solutions to their problems.</p></div>
+        <div><p class="m-label m-muted" style="margin-bottom:.6rem">Who we're for</p><p class="m-body">Industry challengers in any category, with proven depth in financial institutions (community banks, credit unions, fintech) and B2B SaaS. Buyers: the CEO or CMO.</p></div>
+      </div>
+    </div>
+
+    <h3 class="m-h3 sub">Five voice principles</h3>
+    <ol class="m-rows" id="principles"><li class="m-small m-secondary">Loading from voice-and-tone.md…</li></ol>
+
+    <h3 class="m-h3 sub">Say this, not that</h3>
+    <div class="m-compare" id="saynot"></div>
+    <p class="m-small m-secondary" style="margin-top:var(--m-space-md)">The full list lives in <a class="m-link" href="brand/verbal/concepts.md">concepts.md</a> and drives <code>scripts/check-copy.mjs</code>. Approved lines are in <a class="m-link" href="brand/verbal/messaging.md">messaging.md</a>.</p>
+  </div>
+</section>
+
+<!-- ============ VISUAL: COLOR ============ -->
+<section id="visual" class="m-section">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">03 · Color</span><a class="file" href="brand/visual/color.md">brand/visual/color.md ↗</a></div>
+    <h2 class="m-h2" style="max-width:20ch">Monochrome. Color is earned by <em>imagery</em>, not by the&nbsp;interface.</h2>
+    <div class="grid-4" id="swatches" style="margin-top:var(--m-space-xl)"></div>
+
+    <h3 class="m-h3 sub">Open dark, work light, close dark</h3>
+    <div class="themes">
+      <div class="m-theme-dark"><span class="m-label m-muted">Dark · ink</span><p class="m-h3" style="font-weight:500;margin:0">Heroes, covers, the final CTA.</p><span class="m-caption" data-contrast></span></div>
+      <div class="m-theme-light"><span class="m-label m-muted">Light · concrete</span><p class="m-h3" style="font-weight:500;margin:0">The work, on the web.</p><span class="m-caption" data-contrast></span></div>
+      <div class="m-theme-sheet"><span class="m-label m-muted">Sheet</span><p class="m-h3" style="font-weight:500;margin:0">Decks, proposals, print.</p><span class="m-caption" data-contrast></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISUAL: TYPE ============ -->
+<section class="m-section">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">04 · Typography</span><a class="file" href="brand/visual/typography.md">brand/visual/typography.md ↗</a></div>
+    <div class="specimen"><div><p class="m-label">Display</p><p class="m-caption">Inter 900 · 50–110px</p></div><p class="m-display">Fast. Cheap. <em>And</em>&nbsp;Good.</p></div>
+    <div class="specimen"><div><p class="m-label">Section title</p><p class="m-caption">Inter 900 + Baskerville italic</p></div><h3 class="m-section-title m-h1"><span class="m-section-title__number">3.0</span><span class="m-section-title__text">Market <em>Analysis</em></span></h3></div>
+    <div class="specimen"><div><p class="m-label">Statement</p><p class="m-caption">Inter 500 · 30–48px</p></div><p class="m-statement">Through a process rooted in <em>careful discovery and bold imagination</em>, we partner with you to co-create high-impact&nbsp;brands.</p></div>
+    <div class="specimen"><div><p class="m-label">Body</p><p class="m-caption">Inter 500 · 19.2px · −0.042em</p></div><p class="m-body">Meddle operates as a lean, founder-led studio. We work with full devotion for a few select partners at a time. We don't cut corners; whether moving fast or going deep, we do it right.</p></div>
+    <div class="specimen"><div><p class="m-label">Label</p><p class="m-caption">IBM Plex Mono · uppercase</p></div><div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:center"><span class="m-label">Fortune favors<br>the daring</span><span class="m-label m-muted">1.0</span><span class="m-caption">Figure 02 · Color palette</span></div></div>
+    <div class="specimen"><div><p class="m-label">Quote</p><p class="m-caption">Libre Baskerville Italic · −0.042em</p></div>
+      <figure class="m-quote"><span class="m-quote__mark">“</span><blockquote><p>He grasped our vision early and gave us the creative direction we needed to reflect our vision and values better than&nbsp;ever.</p></blockquote><cite>Denise Chaykun, Founder, MFO Nonprofit Accounting</cite></figure></div>
+  </div>
+</section>
+
+<!-- ============ VISUAL: BRANDMARK ============ -->
+<section class="m-section m-theme-dark" style="padding-top:var(--m-space-3xl)">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">05 · Brandmark</span><a class="file" href="brand/visual/brandmark.md">brand/visual/brandmark.md ↗</a></div>
+    <h2 class="m-h2" style="max-width:22ch">One proportion. Corner or edge to edge, never floating in <em>between</em>.</h2>
+    <div class="grid-3" style="margin-top:var(--m-space-xl)">
+      <figure class="m-figure"><div class="mark-tile corner m-theme-paper"><svg viewBox="0 0 912.766 199.808"><use href="#wm"/></svg></div><figcaption class="m-caption">✓ Corner: identification (deck cover)</figcaption></figure>
+      <figure class="m-figure"><div class="mark-tile bleed" style="background:var(--m-color-concrete);color:var(--m-color-ink)"><svg viewBox="0 0 912.766 199.808"><use href="#wm"/></svg></div><figcaption class="m-caption">✓ Edge to edge: statement</figcaption></figure>
+      <figure class="m-figure"><div class="mark-tile bad" style="border:1px solid var(--m-hairline)"><svg viewBox="0 0 912.766 199.808" style="width:40%"><use href="#wm"/></svg></div><figcaption class="m-caption">× Mid-size, floating: neither</figcaption></figure>
+      <figure class="m-figure"><div class="mark-tile" style="background:url(brand/assets/reference/hero-video-still-calm.jpg) center/cover"><svg viewBox="0 0 912.766 199.808" class="m-blend"><use href="#wm"/></svg></div><figcaption class="m-caption">✓ Over imagery: difference blend</figcaption></figure>
+      <figure class="m-figure"><div class="mark-tile corner m-theme-paper" style="position:relative"><svg viewBox="0 0 912.766 199.808" style="color:var(--m-wordmark-ghost);mix-blend-mode:var(--m-wordmark-ghost-blend)"><use href="#wm"/></svg><span class="m-caption" style="position:absolute;left:16px;bottom:14px">Interior slide</span></div><figcaption class="m-caption">✓ Ghost: deck interiors</figcaption></figure>
+      <figure class="m-figure"><div class="mark-tile bad" style="border:1px solid var(--m-hairline);color:var(--m-color-signal)"><svg viewBox="0 0 912.766 199.808" style="transform:scaleY(.62)"><use href="#wm"/></svg></div><figcaption class="m-caption">× Squashed, recolored: one proportion, ink or paper</figcaption></figure>
+    </div>
+    <div class="grid-2" style="margin-top:var(--m-space-2xl);align-items:center">
+      <figure class="m-figure"><div class="mark-tile m-theme-paper" style="aspect-ratio:16/9"><img src="brand/assets/illustration/meddle-palm.svg" alt="The twisted palm, Meddle's Orlando HQ mark" style="height:78%;width:auto"></div><figcaption class="m-caption">The twisted palm: Orlando HQ. Our only officially <em class="cap-payoff">unofficial</em> illustration.</figcaption></figure>
+      <p class="m-body m-secondary">A palm whose trunk curls back on itself, drawn like tattoo flash. It stands for Meddle Orlando and lives on the founding merch. The wordmark leads, and the palm stays small and secondary, in ink or paper. <a class="m-link m-link--arrow" href="brand/visual/brandmark.md">Palm rules</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISUAL: ELEMENTS + ART DIRECTION + MOTION ============ -->
+<section class="m-section" data-scroll-theme="light" style="padding-top:var(--m-space-3xl)">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">06 · Art direction</span><a class="file" href="brand/visual/art-direction.md">brand/visual/art-direction.md ↗</a></div>
+    <h2 class="m-h2" style="max-width:22ch">Raw surfaces. One surreal <em>material</em>. Type at impossible&nbsp;scale.</h2>
+    <div class="ad-grid" style="margin-top:var(--m-space-xl)">
+      <figure><img src="brand/assets/reference/card-on-concrete-crop.jpg" alt="Business card across a crack in concrete"><figcaption class="m-caption">Raw surfaces</figcaption></figure>
+      <figure><img src="brand/assets/reference/hero-video-still-intense.jpg" alt="Gold and green glass spiral on black"><figcaption class="m-caption">Engineered surreal</figcaption></figure>
+      <figure><img src="brand/assets/reference/stage-wordmark-crop.jpg" alt="Wordmark on a stage screen" style="object-position:40% 50%"><figcaption class="m-caption">Scale</figcaption></figure>
+      <figure><img src="brand/assets/reference/shirt-against-sky-crop.jpg" alt="Black Meddle shirt held against a blue sky"><figcaption class="m-caption">Real objects</figcaption></figure>
+    </div>
+
+    <div class="sec-head" style="margin-top:var(--m-space-3xl)"><span class="m-label m-muted">07 · Graphic elements</span><a class="file" href="brand/visual/graphic-elements.md">brand/visual/graphic-elements.md ↗</a></div>
+    <div class="grid-2">
+      <ul class="m-list m-reveal-list m-h3"><li>Two brand options</li><li>Detailed deliverables</li><li>One unbeatable price</li></ul>
+      <div class="stack">
+        <p class="m-small m-secondary" style="margin:0">The arrow means "forward, included." The × marks the other model. Rules, never boxes. Mono meta turns any surface into a document.</p>
+        <div class="m-meta" style="border-top:var(--m-border-hairline) var(--m-hairline);padding-top:1rem"><span class="m-meta__item">Meddle</span><span class="m-meta__item"></span><span class="m-meta__item">Fortune favors<br>the daring</span><span class="m-meta__item m-meta__item--end">02</span></div>
+        <p><a class="m-link m-link--arrow" href="brand/visual/graphic-elements.md">Hover this link</a> &nbsp; <a class="m-link m-link--external" href="https://meddle.studio">meddle.studio</a></p>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:var(--m-space-3xl)"><span class="m-label m-muted">08 · Motion</span><a class="file" href="brand/visual/motion.md">brand/visual/motion.md ↗</a></div>
+    <div class="grid-3">
+      <div class="motion-card"><p class="m-label">Expo-out · signature</p><div class="ease-demo"><span style="transition:left 950ms var(--m-ease-expo)"></span></div><p class="m-small m-secondary">Theme changes, reveals, underlines. Decisive, then unhurried. Hover to play.</p></div>
+      <div class="motion-card"><p class="m-label">Standard · UI</p><div class="ease-demo"><span style="transition:left 300ms var(--m-ease-standard)"></span></div><p class="m-small m-secondary">Hover colors, tooltips. Out of the way.</p></div>
+      <div class="motion-card"><p class="m-label">Linear · never for UI</p><div class="ease-demo"><span style="transition:left 950ms linear"></span></div><p class="m-small m-secondary">Only for marquees. Compare the feel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section id="components" class="m-section">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">09 · Components</span><a class="file" href="components/README.md">components/ ↗</a></div>
+    <h2 class="m-h2" style="max-width:20ch">Pills are actions. Squares are <em>content</em>.</h2>
+
+    <div class="grid-2" style="margin-top:var(--m-space-xl)">
+      <div class="m-theme-dark" style="padding:var(--m-space-lg)">
+        <p class="m-label m-muted" style="margin-bottom:1rem">Nav · on ink</p>
+        <ul class="m-nav"><li><a class="m-pill is-active" href="#components">Home</a></li><li><a class="m-pill" href="#components">Work</a></li><li><a class="m-pill" href="#components">Services</a></li><li class="m-nav__end"><a class="m-pill" href="#components">Contact</a></li></ul>
+        <p class="m-label m-muted" style="margin:2rem 0 1rem">Button · on ink</p>
+        <button class="m-pill m-button" type="button">Submit</button>
+      </div>
+      <div class="m-theme-light" style="padding:var(--m-space-lg)">
+        <p class="m-label m-muted">Form · on concrete</p>
+        <label class="m-field"><span class="m-field__label">What's your name?*</span><input class="m-input" placeholder="Your name"></label>
+        <div class="m-field"><span class="m-field__label">What are we creating?*</span>
+          <div class="m-chips"><label class="m-chip"><input type="checkbox" checked><span>Brand</span></label><label class="m-chip"><input type="checkbox"><span>Website</span></label><label class="m-chip"><input type="checkbox"><span>Art Direction</span></label></div></div>
+        <button class="m-pill m-button" type="button" style="margin-top:2rem">Submit</button>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--m-space-lg)">
+      <p class="m-label m-muted" style="margin-bottom:var(--m-space-2xs)">Homepage hero · <code>.m-hero</code> · scroll inside the frame</p>
+      <div class="hero-demo m-theme-dark" tabindex="0" aria-label="Homepage hero demo">
+        <div class="m-hero">
+          <div class="m-hero__media"><img src="brand/assets/reference/hero-video-still-calm.jpg" alt=""></div>
+          <div class="m-hero__wordmark m-blend"><svg viewBox="0 0 912.766 199.808" aria-hidden="true"><use href="#wm"/></svg></div>
+        </div>
+        <div class="m-hero__nav"><ul class="m-nav"><li><span class="m-pill is-active">Home</span></li><li><span class="m-pill">Work</span></li><li><span class="m-pill">Services</span></li><li class="m-nav__end"><span class="m-pill">Contact</span></li></ul></div>
+        <div class="hero-demo__after m-theme-light"><p class="m-body">The meddle.studio pattern: the wordmark starts centered, sticks to the top, and stops just above the nav, which then pins. On the site the media is the abstract video loop.</p></div>
+      </div>
+    </div>
+
+    <div class="m-theme-sheet" style="padding:var(--m-space-lg) var(--m-space-sm);margin-top:var(--m-space-lg)">
+      <h3 class="m-section-title" style="font-size:clamp(2.2rem,1.2rem + 3vw,4.75rem);margin-bottom:var(--m-space-xl)"><span class="m-section-title__number">5.0</span><span class="m-section-title__text">Services <em>&amp; Offerings</em></span></h3>
+      <div class="m-columns" style="font-size:1.05rem;line-height:1.35;font-weight:400">
+        <div><h4 class="m-col-label">Capabilities</h4><ul class="m-list m-list--plain" style="font-size:1.35rem"><li style="border:0;padding:.2rem 0">→ Brand Strategy</li><li style="border:0;padding:.2rem 0">→ Visual Identity</li><li style="border:0;padding:.2rem 0">→ Web Design</li></ul></div>
+        <div><h4 class="m-col-label">Project-Based</h4><p>Brand strategy, full identity, web design and/or development—whatever your project demands.</p></div>
+        <div><h4 class="m-col-label">Brand Sprints</h4><p>Complete visual identity in two weeks, for one flat fee.</p></div>
+        <div><h4 class="m-col-label">Fractional Leadership</h4><p>A CCO-level creative partner, without the full-time overhead.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEMPLATES ============ -->
+<section id="templates" class="m-section">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">10 · Templates</span><a class="file" href="templates/README.md">templates/ ↗</a></div>
+    <div class="grid-2" style="align-items:end;margin-bottom:var(--m-space-lg)">
+      <h2 class="m-h2">The deck grid, <em>working</em>.</h2>
+      <p class="m-body m-secondary">The master lives in <a class="m-link m-link--external" href="https://www.figma.com/design/F5oGU0iiKPWWgMGkZDaA21/Discovery---Strategy--TEMPLATE-?node-id=8-553">Figma</a>. This HTML version uses the same measurements at 1920×1080 and prints to PDF. <a class="m-link m-link--arrow" href="templates/deck/deck.html">Open deck.html</a></p>
+    </div>
+    <iframe class="deck-frame" src="templates/deck/deck.html" title="Meddle deck template preview" loading="lazy"></iframe>
+    <ul class="m-list m-h3" style="margin-top:var(--m-space-xl)">
+      <li><a class="m-link" href="templates/case-study.md">Case study</a></li>
+      <li><a class="m-link" href="templates/proposal.md">Proposal / SOW</a></li>
+      <li><a class="m-link" href="templates/linkedin-post.md">LinkedIn and social</a></li>
+      <li><a class="m-link" href="templates/email.md">Email</a></li>
+      <li><a class="m-link" href="templates/landing-page.md">Landing page</a></li>
+      <li><a class="m-link m-link--arrow" href="tools/social/index.html">Social tile generator</a></li>
+      <li><a class="m-link m-link--arrow" href="showcase/with-without/index.html">With and without the kit</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FILES / ROUTING ============ -->
+<section id="files" class="m-section">
+  <div class="m-container">
+    <div class="sec-head"><span class="m-label m-muted">11 · For agents</span><a class="file" href="AGENTS.md">AGENTS.md ↗</a></div>
+    <div class="grid-2" style="margin-bottom:var(--m-space-xl)">
+      <h2 class="m-h2">Read the magic trick. Then read only what the job <em>needs</em>.</h2>
+      <p class="m-body m-secondary">Agents start at <a class="m-link" href="AGENTS.md">AGENTS.md</a> and pick the one row that fits. Values come from <code>visual-system.json</code> → <code>tokens.css</code>. Facts come only from <a class="m-link" href="brand/facts.md">facts.md</a>. Changes and their reasons go in <a class="m-link" href="CHANGELOG.md">CHANGELOG.md</a>.</p>
+    </div>
+    <div id="routes"></div>
+    <p style="margin-top:var(--m-space-lg)"><button class="m-pill m-button" type="button" data-open-reader="README.md">Browse all source files</button></p>
+  </div>
+</section>
+
+<!-- ============ CTA (dark) ============ -->
+<section class="m-cta-band m-theme-dark" data-scroll-theme="dark">
+  <span class="m-label">Start here</span>
+  <a class="m-pill m-cta" href="brand/magic_trick.md">Read the magic trick</a>
+</section>
+</main>
+
+<footer class="m-theme-dark">
+  <div class="m-container m-footer">
+    <ul><li><a class="m-link m-link--lead" href="README.md">Readme</a></li><li><a class="m-link m-link--lead" href="CHANGELOG.md">Changelog</a></li></ul>
+    <ul><li><a class="m-link m-link--lead m-link--external" href="https://meddle.studio">meddle.studio</a></li><li><a class="m-link m-link--lead m-link--external" href="https://www.linkedin.com/company/meddle-studio">LinkedIn</a></li></ul>
+    <span class="m-signoff">Fortune favors the daring.</span>
+    <span class="m-footer__legal">© Meddle 2026 · v1.4.0</span>
+  </div>
+</footer>
+
+<div class="m-tooltip" id="tooltip" aria-hidden="true"></div>
+
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-label="Kit source file">
+  <div class="reader__panel m-theme-sheet">
+    <nav class="reader__nav" id="reader-nav" aria-label="Source files"></nav>
+    <article class="reader__doc" id="reader-doc">
+      <div class="reader__bar"><span class="m-label m-muted" id="reader-path"></span><a class="m-link m-link--external m-small" id="reader-raw" target="_blank" rel="noopener">Raw file</a><button class="m-pill m-button" id="reader-close" type="button" style="margin:0;padding:12px 18px">Close</button></div>
+      <div class="md" id="reader-body"></div>
+    </article>
+  </div>
+</div>
+
+
+<script src="kit-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script>
+/* Live kit content. Sections below render from the source files, so this page can't drift from them:
+   over http(s) the files are fetched live; opened from disk, it uses kit-data.js (npm run build). */
+(() => {
+  const isHttp = location.protocol.startsWith('http');
+  const cache = {};
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const strip = (path, t) => (path === 'brand/facts.md' ? t.replace(/\n## Internal only[\s\S]*?(?=\n## |\s*$)/, '\n') : t);
+  async function getDoc(path) {
+    if (path in cache) return cache[path];
+    let text = null;
+    if (isHttp) { try { const r = await fetch(path, { cache: 'no-store' }); if (r.ok) text = await r.text(); } catch (e) { /* fall back to bundle */ } }
+    if (text == null && window.MEDDLE_DOCS) text = window.MEDDLE_DOCS[path] ?? null;
+    return (cache[path] = text == null ? null : strip(path, text));
+  }
+  const md = (s) => (window.marked ? marked.parse(s) : '<pre>' + esc(s) + '</pre>');
+  const inline = (s) => (window.marked ? marked.parseInline(s) : esc(s));
+  const sectionOf = (text, heading) => (text.split(/\n## /).find((b) => b.startsWith(heading)) || '');
+  const rows = (block) => block.split('\n').filter((l) => l.trim().startsWith('|') && !/^\|\s*-/.test(l.trim())).slice(1).map((l) => l.split('|').slice(1, -1).map((c) => c.trim()));
+  const clean = (s) => s.replace(/\*\*/g, '').replace(/`/g, '');
+
+  // Cover meta: version and date from the latest CHANGELOG entry
+  getDoc('CHANGELOG.md').then((t) => {
+    const m = t && t.match(/^## (\d{4})-(\d{2})-(\d{2}): v([\d.]+)/m); if (!m) return;
+    const d = `${+m[3]} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2] - 1]} ${m[1]}`;
+    document.getElementById('cover-version').innerHTML = `v${m[4]}<br>Updated ${d}`;
+  });
+
+  // Voice principles (voice-and-tone.md)
+  getDoc('brand/verbal/voice-and-tone.md').then((t) => {
+    if (!t) return;
+    const items = [...t.matchAll(/^### (\d+)\. (.+)\n([^\n]+)/gm)];
+    document.getElementById('principles').innerHTML = items.map(([, n, title, desc]) =>
+      `<li><a class="m-row" href="brand/verbal/voice-and-tone.md"><span class="m-row__num">${n.padStart(2, '0')}</span><h4 class="m-row__title">${esc(title)}</h4><p class="m-row__desc">${inline(desc)}</p></a></li>`).join('');
+  });
+
+  // Say this, not that (concepts.md)
+  getDoc('brand/verbal/concepts.md').then((t) => {
+    if (!t) return;
+    const r = rows(sectionOf(t, 'Say this, not that')).slice(0, 6);
+    document.getElementById('saynot').innerHTML =
+      `<div><h3 class="m-h3">Meddle says</h3><ul class="m-list m-h3">${r.map((c) => `<li>${esc(clean(c[0]))}</li>`).join('')}</ul></div>` +
+      `<div><h3 class="m-h3">Not</h3><ul class="m-list m-list--no m-h3">${r.map((c) => `<li>${esc(clean(c[1]).split(',')[0])}</li>`).join('')}</ul></div>`;
+  });
+
+  // Color swatches (visual-system.json)
+  getDoc('brand/visual/visual-system.json').then((t) => {
+    if (!t) return;
+    const colors = JSON.parse(t).color;
+    const firstSentence = (s) => (s || '').split(/(?<=\.)\s/)[0];
+    const cards = Object.entries(colors).filter(([k]) => k !== 'legacy').map(([name, c]) =>
+      `<div class="swatch"><div class="chip" style="background:var(--m-color-${name})"></div><h4>${name[0].toUpperCase() + name.slice(1)}</h4><p><code>${c.value}</code> · ${esc(firstSentence(c.use))}</p></div>`);
+    const legacy = colors.legacy;
+    if (legacy) cards.push(`<div class="swatch"><div class="chip m-placeholder" style="background:repeating-linear-gradient(135deg,transparent 0 10px,var(--m-hairline) 10px 11px)"><span class="m-caption">Retired</span></div><h4>Retired</h4><p>${Object.entries(legacy).filter(([k]) => k !== 'status').map(([k, v]) => `<code>${v.value}</code>`).join(' ')} · ${esc(firstSentence(legacy.status))}</p></div>`);
+    document.getElementById('swatches').innerHTML = cards.join('');
+  });
+
+  // Routing table (README.md "Where to start")
+  getDoc('README.md').then((t) => {
+    if (!t) return;
+    const r = rows(sectionOf(t, 'Where to start'));
+    document.getElementById('routes').innerHTML = r.map(([job, files]) => {
+      const links = [...files.matchAll(/`([^`]+)`/g)].map(([, p]) => p.trim()).filter((p) => /\.(md|css|json|js|html)$/.test(p) || p.endsWith('/'));
+      return `<div class="route"><strong>${inline(job.replace(/\*\*/g, ''))}</strong><span class="files">${links.map((p) => `<a class="file" href="${esc(p)}">${esc(p.split('/').filter(Boolean).pop().replace(/\.md$/, ''))}</a>`).join('')}</span></div>`;
+    }).join('');
+  });
+
+  // Theme contrast, computed from the live tokens
+  const lum = (rgb) => { const [r, g, b] = rgb.map((c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  const parse = (css) => css.match(/[\d.]+/g).map(Number);
+  const blend = (fg, bg) => { const a = fg[3] ?? 1; return fg.slice(0, 3).map((c, i) => c * a + bg[i] * (1 - a)); };
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return ((x + 0.05) / (y + 0.05)).toFixed(1); };
+  document.querySelectorAll('[data-contrast]').forEach((cap) => {
+    const box = cap.closest('.m-theme-dark, .m-theme-light, .m-theme-sheet, .m-theme-paper'); const cs = getComputedStyle(box);
+    const bg = parse(cs.backgroundColor);
+    const probe = (v) => { const d = document.createElement('span'); d.style.color = `var(${v})`; box.appendChild(d); const c = parse(getComputedStyle(d).color); d.remove(); return blend(c, bg); };
+    cap.textContent = `fg ${ratio(probe('--m-fg'), bg)}:1 · muted ${ratio(probe('--m-muted'), bg)}:1 · small ${ratio(probe('--m-muted-small'), bg)}:1`;
+  });
+
+  // Reader
+  const reader = document.getElementById('reader'), body = document.getElementById('reader-body');
+  let current = null;
+  const groups = [['Start', /^(README|AGENTS|CLAUDE)\.md$|magic_trick|how-to-prompt/], ['Verbal', /verbal\//], ['Visual', /visual\/|assets\//], ['Templates', /templates\//], ['Components & evals', /components\/|evals\//], ['Facts & log', /facts|open-questions|CHANGELOG/]];
+  const docLabel = (p) => { const parts = p.split('/'); const base = parts.pop().replace('.md', ''); return (base === 'README' && parts.length ? parts.pop() + ' (readme)' : base).replace(/[-_]/g, ' '); };
+  function buildNav() {
+    const paths = Object.keys(window.MEDDLE_DOCS || {}).filter((p) => p.endsWith('.md'));
+    const used = new Set();
+    document.getElementById('reader-nav').innerHTML = groups.map(([label, re]) => {
+      const list = paths.filter((p) => !used.has(p) && re.test(p)); list.forEach((p) => used.add(p));
+      return list.length ? `<h4>${label}</h4>` + list.map((p) => `<a href="${p}" data-doc-link="${p}">${esc(docLabel(p))}</a>`).join('') : '';
+    }).join('');
+  }
+  const resolve = (base, href) => {
+    const parts = base ? base.split('/').slice(0, -1) : [];
+    for (const seg of href.split('#')[0].split('/')) { if (seg === '..') parts.pop(); else if (seg && seg !== '.') parts.push(seg); }
+    return parts.join('/');
+  };
+  async function openDoc(path) {
+    const text = await getDoc(path);
+    if (text == null) return false;
+    current = path;
+    document.getElementById('reader-path').textContent = path;
+    document.getElementById('reader-raw').href = path;
+    body.innerHTML = path.endsWith('.json') ? '<pre><code>' + esc(text) + '</code></pre>' : md(text);
+    document.querySelectorAll('#reader-nav a').forEach((a) => a.classList.toggle('is-current', a.dataset.docLink === path));
+    reader.hidden = false; document.documentElement.style.overflow = 'hidden';
+    document.getElementById('reader-doc').scrollTop = 0;
+    history.replaceState(null, '', '#doc=' + encodeURIComponent(path));
+    return true;
+  }
+  function closeDoc() { reader.hidden = true; document.documentElement.style.overflow = ''; current = null; history.replaceState(null, '', location.pathname); }
+  buildNav();
+  document.getElementById('reader-close').addEventListener('click', closeDoc);
+  reader.addEventListener('click', (e) => { if (e.target === reader) closeDoc(); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !reader.hidden) closeDoc(); });
+  document.addEventListener('click', async (e) => {
+    const trigger = e.target.closest('[data-open-reader]');
+    if (trigger) { e.preventDefault(); openDoc(trigger.dataset.openReader); return; }
+    const a = e.target.closest('a'); if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || /^(https?:|mailto:|#)/.test(href) || a.id === 'reader-raw') return;
+    const inReader = reader.contains(a) && current && !a.dataset.docLink;
+    const path = inReader ? resolve(current, href) : resolve('', href);
+    if (!/\.(md|json)$/.test(path)) return;
+    e.preventDefault();
+    if (!(await openDoc(path))) location.href = href;
+  });
+  const fromHash = () => { const m = location.hash.match(/^#doc=(.+)$/); if (m && decodeURIComponent(m[1]) !== current) openDoc(decodeURIComponent(m[1])); };
+  addEventListener('hashchange', fromHash); fromHash();
+})();
+</script>
+<script src="components/components.js"></script>
+
+</body>
+</html>
