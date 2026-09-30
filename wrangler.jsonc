@@ -8,6 +8,10 @@
     {
       "pattern": "brand.meddle.studio",
       "custom_domain": true
+    },
+    {
+      "pattern": "agents.meddle.studio",
+      "custom_domain": true
     }
   ],
   "workers_dev": false,

@@ -1,0 +1,47 @@
+# Meddle Brand System
+
+> Meddle's agentic brand system: verbal and visual guidance, tokens, components, and templates for people and agents. Meddle is a brand and design studio for industry challengers. Read AGENTS.md first; it sets the read order and the rules that are never broken.
+
+Markdown files are served as plain text. Read only what your task needs, and read it fully. The routing table in README.md ("Where to start") says which files each job needs.
+
+## Start here
+
+- [AGENTS.md](/AGENTS.md): read order and non-negotiables
+- [Magic trick](/brand/magic_trick.md): the one idea everything applies; read before anything else
+- [README](/README.md): what's inside, and the routing table by job
+- [Facts](/brand/facts.md): the only source for numbers, names, offers, and claims
+
+## Verbal
+
+- [Positioning](/brand/verbal/positioning.md): who Meddle is for, what it promises, why hire us
+- [Voice and tone](/brand/verbal/voice-and-tone.md): how Meddle sounds, by context
+- [Concepts](/brand/verbal/concepts.md): words Meddle owns and avoids
+- [Messaging](/brand/verbal/messaging.md): approved lines, boilerplates, and CTAs
+
+## Visual
+
+- [Color](/brand/visual/color.md)
+- [Typography](/brand/visual/typography.md)
+- [Layout](/brand/visual/layout.md)
+- [Brandmark](/brand/visual/brandmark.md): the wordmark and where it goes
+- [Art direction](/brand/visual/art-direction.md): imagery, 3D, and video
+- [Motion](/brand/visual/motion.md)
+- [Visual system](/brand/visual/visual-system.json): the source of every visual value
+
+## Code
+
+- [Tokens](/brand/visual/tokens.css): `--m-*` CSS variables, generated from visual-system.json
+- [Components](/components/README.md): `.m-*` classes and snippets
+- [Components CSS](/components/components.css)
+- [Fonts](/brand/visual/fonts.css)
+
+## Templates
+
+- [Templates](/templates/README.md): recipes for case studies, proposals, emails, LinkedIn posts, and landing pages
+- [Deck](/templates/deck/README.md): the deck master and its HTML mirror
+
+## Optional
+
+- [Rubric](/evals/rubric.md): how to score a draft against the kit
+- [How to prompt](/brand/how-to-prompt.md): how to brief an agent with this kit
+- [Changelog](/CHANGELOG.md): what changed, and why

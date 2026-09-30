@@ -6,6 +6,15 @@ Format: `## YYYY-MM-DD: title`, then **Changed**, **Why**, **Affects**, **Checke
 
 ---
 
+## 2026-09-30: v1.6.4 agents.meddle.studio and llms.txt
+
+**Changed:** the published kit is served at two addresses, brand.meddle.studio and agents.meddle.studio. Both are custom domains on the same Worker (`DOMAINS` in `scripts/build-site.mjs`), with no redirect between them. A new root `llms.txt` is the agent entry point: it links the read order and the kit's files by job. The site build fails if any of its links don't resolve.
+**Why:** the kit is machine-first, and some audiences are shown it for the agent-first approach rather than for the brand. agents.* names the reader, as the AGENTS.md convention does. agentic.* was ruled out because it names a method, not a reader, and it's the address Little Plains uses for its own pitch. Serving both addresses, not redirecting, keeps whichever one was shared in the address bar. The kit is noindex, so there's no ranking to split and no canonical to pick. llms.txt backs the agents.* claim when someone checks it.
+**Affects:** publishing (`wrangler.jsonc`, the published README), the deploy output, CLAUDE.md, README. Adding or moving a kit file that llms.txt links means updating llms.txt.
+**Checked:** `npm run site` builds with no dead llms.txt links, and the generated wrangler.jsonc lists both custom domains. `npm run verify` passes.
+
+---
+
 ## 2026-09-30: v1.6.3 one kit version
 
 **Changed:** the newest CHANGELOG heading is now the kit's only version. `scripts/build-version.mjs`, the first step of `npm run build`, copies it into package.json, index.html's footer, and `visual-system.json` `meta.version` (which the tokens.css header and the Figma sync quote). `npm run verify` fails if they drift. To release, add the changelog entry and run `npm run build`.

@@ -76,6 +76,7 @@ scripts/
 evals/                    ← fresh-agent QA prompts and review rubric
 .claude/skills/           ← /meddle-make and /meddle-review for Claude Code
 index.html                ← the browsable brand system (renders the real source files, with a reader)
+llms.txt                  ← the agent entry point on the published site (links must resolve, or the site build fails)
 client-kit/               ← BLANK template for a client's agentic brand guide (not Meddle's brand; see below)
 tools/social/             ← social tile generator: on-brand PNGs for LinkedIn/Instagram, kit-checked
 showcase/with-without/    ← the same prompts with and without the kit (sales page)
@@ -95,8 +96,8 @@ npm run build                            # regenerate everything derived: versio
 npm run verify                           # fail if any generated file is stale (run before committing)
 npm run check -- draft.md                # lint copy against concepts.md (also accepts stdin and .html)
 npm run figma                            # print the Figma sync code (see CLAUDE.md)
-npm run site                             # build dist/ for brand.meddle.studio (strips private content, fails on leaks)
-npm run deploy                           # build, then push dist/ to the public repo meddle-studio/brand (a Cloudflare Worker serves site/)
+npm run site                             # build dist/ for brand.* and agents.meddle.studio (strips private content, fails on leaks)
+npm run deploy                           # build, push dist/ to the public repo meddle-studio/brand, and deploy it live (-- --force to redeploy)
 ```
 
 Run `npm run build` after editing any markdown in the kit too: `index.html` renders the real files, and opened from disk it reads the bundled `kit-data.js`.
