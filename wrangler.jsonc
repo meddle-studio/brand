@@ -3,5 +3,13 @@
   "compatibility_date": "2026-06-01",
   "assets": {
     "directory": "./site"
-  }
+  },
+  "routes": [
+    {
+      "pattern": "brand.meddle.studio",
+      "custom_domain": true
+    }
+  ],
+  "workers_dev": false,
+  "preview_urls": false
 }
