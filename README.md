@@ -93,7 +93,7 @@ CHANGELOG.md              ← what changed, and why
 No install needed (Node 18+).
 
 ```bash
-npm run build                            # regenerate everything derived: tokens.css, lexicon.js, kit-data.js
+npm run build                            # regenerate everything derived: version (from CHANGELOG), tokens.css, lexicon.js, kit-data.js
 npm run verify                           # fail if any generated file is stale (run before committing)
 npm run check -- draft.md                # lint copy against concepts.md (also accepts stdin and .html)
 npm run figma                            # print the Figma sync code (see CLAUDE.md)
