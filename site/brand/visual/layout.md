@@ -7,7 +7,17 @@ Grid, spacing, and composition for the web and for documents. Values are in [`vi
 1. **The grid is the status quo, so honor it.** Everything aligns to columns and rules. The interference (scale, italic, material) only reads because everything else is strict.
 2. **Tight to the edge, generous inside.** The wordmark and nav sit 16px (`--m-space-sm`) from the viewport corner. Sections then breathe with 7.5–11.25rem of vertical space. Corner tension plus open interiors is the Meddle composition.
 3. **Asymmetry over centering.** Content usually sits in the right half or right three columns and leaves the left column empty or holding a label or image. Centering is reserved for the single hero statement and the final CTA.
-4. **Rules, not boxes.** Structure comes from 1px lines (horizontal dividers, vertical column rules, bordered lists), not from cards, fills, or shadows.
+4. **Rules, not boxes.** Structure comes from 1px lines (horizontal dividers, vertical column rules, bordered lists), not from cards, fills, or shadows. The one exception is an **ink panel on a light page**: one per page, holding the price (`.m-price`), or one inked step in a timeline (`.m-timeline .is-key`). It's a single inversion that does the section's interference, not a card system.
+
+## Composition: what makes a page strong
+
+The principles above say what the discipline is. These say how to make it land. A page can follow every rule in the kit and still lose to a generic page if it skips these. Discipline means rigor and conviction, not small, quiet, and vague.
+
+5. **One focal point per section, on a clear scale ladder.** Every section has one element at h1 scale or larger (a headline, a number, or an image), and everything else steps down at least two roles. On an offer page, the hero headline and the price are the two biggest things. A page set entirely in mid sizes (h2 statements, h3 lists) reads as a wireframe.
+6. **Show the specifics as structure.** When facts.md has the details (a schedule, a list of deliverables, a price, a comparison), show them as a timeline, numbered rows with a line each, a price panel, or ruled columns. "Detailed deliverables" in a bullet is a claim. Seven named deliverables, each with one line, are proof.
+7. **Vary the section shape.** Don't put two sections with the same composition back to back. Alternate between a split (a headline on the left, a list on the right), a full-width strip (timeline, ruled columns), a two-up (list beside a panel), and full-width imagery.
+8. **Hold the open space.** Open space reads as intent when something anchors it: a display headline, a sticky panel, a full-width image, or content pinned to an edge. A short headline at the top of a tall, empty column isn't open space. It's a void. Make the item sticky, give the column a focal element, or shorten the section.
+9. **Let imagery bring the color.** The interface is monochrome, so a page with no images is grey from top to bottom. Any page longer than two screens needs at least one real image: work from `../assets/work/` (facts.md says how it may be credited) or the material loop (`art-direction.md`). Never use stock.
 
 ## Edge vs. container (intentional offset)
 
@@ -34,7 +44,9 @@ Every content section opens with a hairline and a mono label, and may be numbere
 
 ### Hero height
 
-The homepage and brand-level heroes are `100svh`. Offer pages may size the hero to its content, with `--m-space-4xl` of padding.
+Every page hero is `100svh`, offer pages included: the opening owns the first screen. Brand-level pages use the wordmark hero (`.m-hero`). Offer pages use `.m-offer-hero`: the top bar, then the kicker, display headline, and aside centered in the space below (production: the Sprints page). Don't shrink a hero to its content. The first screen is where the one showpiece lives.
+
+When you check your render, use a normal viewport (1440×900, or `node scripts/screenshot.mjs`), not one tall window. A 2600px-tall window makes a `100svh` hero fill the whole screenshot.
 
 ### Page anatomy (homepage pattern)
 
@@ -43,6 +55,20 @@ The homepage and brand-level heroes are `100svh`. Offer pages may size the hero 
 3. **Work**: large video cards, full container width, with the theme crossing to light as they arrive.
 4. **Services**: hairline, a statement in the left half, the tagline in italic on the right in grey, another hairline, then a sticky "What We Do" arrow list on the left and numbered "Ways to Engage" rows on the right.
 5. **Footer** (ink): mono uppercase links with arrows and © Meddle.
+
+### Offer-page anatomy (Sprints pattern)
+
+From the owner's Sprints page redesign (meddle.studio, 2026-09-30). Use it for any page that sells one offer.
+
+1. **Hero** (`.m-offer-hero`, 100svh, ink, centered): the `.m-topbar` (corner wordmark home, one "Book an intro call" pill), then a `.m-kicker`, a `.m-display` headline with the one italic payoff (break the line on purpose: "Fast. Cheap.<br>*And* Good."), and the `.m-aside` talking back to it. On an offer page this headline is the page's showpiece, so don't add a hero video or a full-bleed wordmark.
+2. **Promise:** the approved one-line promise at h2 in the left half, and a short arrow list (`.m-list`, h3) on the right.
+3. **How it works:** a hairline section head, an h2 headline with an `.m-body-lg` lede beside it, then the full-width `.m-timeline` built from the schedule in facts.md, with one step inked (the decision day).
+4. **What you get + the price:** numbered deliverables (`.m-numbered`, one line each, from facts.md) in seven columns, and the `.m-price` ink panel in the other five, sticky. The price is the section's interference, so its headline stays plain.
+5. **The work:** "What it can look like," as an `.m-gallery` of real images from an engagement of this offer (`../assets/work/`), with a full-width image first and mono captions that name the deliverable. Credit it only as facts.md allows.
+6. **Comparison:** the offer against the traditional agency (`.m-compare`), under a plain headline.
+7. **Close:** the `.m-cta-band` on ink with one `.m-cta.m-cta--wide`, then the footer.
+
+The theme runs ink (hero) → concrete (2–6) → ink (close). A dark band partway down, like the production page's agentic-guide section, is allowed when it introduces something new. Sections 2–6 alternate shape (split, strip, two-up, gallery, split), which is principle 7 at work.
 
 ### Case-study anatomy
 

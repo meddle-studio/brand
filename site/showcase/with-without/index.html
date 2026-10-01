@@ -49,7 +49,7 @@
 </header>
 
 <section class="hero m-container">
-  <span class="m-label m-muted">An experiment · 30 September 2026</span>
+  <span class="m-label m-muted">An experiment · 1 October 2026</span>
   <h1 class="m-h1">Same prompt. Same model. Only one is <em>Meddle</em>.</h1>
   <p class="m-body-lg">We gave two AI agents the same request. One got a one-line brief. The other got Meddle's agentic brand system, the files our own team builds from. Neither output was edited. Toggle between them and see which decisions the kit made.</p>
 </section>
@@ -86,7 +86,7 @@
     <div class="honest">
       <span class="m-label m-muted">Why the baseline matters</span>
       <p class="m-body" style="margin-top:var(--m-space-sm)">The version without the kit is good work, and that's the point. A capable agent makes reasonable, generic choices: an accent color, rounded cards, a flourish on every headline, a pitch in every post. None of it is wrong. None of it is Meddle. The kit replaces those guesses with decisions that have a reason on file, so the next page, deck, or post comes out on brand without anyone re-explaining the brand.</p>
-      <p class="m-small m-secondary">Both outputs were generated with Claude on 30 September 2026 and are unedited. Raw files: <code>evals/runs/2026-09-30-without-kit/</code> and <code>evals/runs/2026-09-30-fresh-agent-2/</code>.</p>
+      <p class="m-small m-secondary">Every output was generated with the same Claude model and the same prompt, and none was edited. The landing section was made without the kit on 30 September and with kit v1.7.0 on 1 October 2026. Both LinkedIn posts are from 30 September. Raw files: <code>evals/runs/2026-09-30-without-kit/</code>, <code>evals/runs/2026-10-01-with-kit/</code>, and <code>evals/runs/2026-09-30-fresh-agent-2/</code>.</p>
     </div>
   </div>
 </section>
@@ -114,25 +114,25 @@ const DATA = {
       img: 'assets/landing-without.jpg', alt: 'Landing section built without the kit: beige background, orange accents, rounded cards, typed lowercase logo.',
       title: 'The agent guessed', sub: 'Six reasonable choices, each one a guess. Here’s what the kit would have said instead.',
       items: [
-        ['brandmark.md', 'Typed the logo as “meddle.” with an orange dot.', 'The wordmark is one SVG, at one proportion, and is never typed out in a font.'],
+        ['brandmark.md', 'Typed the logo as “meddle.” with an orange dot.', 'The wordmark is one SVG, at its default proportion, and is never typed out in a font.'],
         ['color.md', 'Brought in an orange accent, a warm beige ground, and a full orange CTA band.', 'Monochrome. Color is earned by imagery, not by the interface.'],
         ['magic_trick.md', 'Stacked italic flourishes and a strikethrough across two screens.', 'One interference per surface. Two compete and neither lands.'],
         ['layout.md', 'Rounded the corners of the cards.', 'Pills are actions. Squares are content. No in-between radii.'],
         ['concepts.md', 'Wrote “Book a sprint.”', '“Book an intro call,” said the same way everywhere.'],
-        ['facts.md', 'Invented a ten-day schedule and a “six months” comparison.', 'Never state a fact that isn’t on file. The foil is $80K–$500K+ and 3–9 months.'],
+        ['facts.md', 'Invented its own day-by-day schedule, with the decision on day 5, and a “six months” comparison.', 'Never state a fact that isn’t on file. The real schedule is there (decision day is Day 6), and so is the foil: $80K–$500K+ and 3–9 months.'],
       ],
     },
     with: {
-      context: '+ The kit. It read: AGENTS.md → magic_trick.md → README routing (“A web page or landing section”) → landing-page.md → components → layout.md → messaging.md → facts.md → brandmark.md',
-      img: 'assets/landing-with.jpg', alt: 'Landing section built with the kit: ink hero, the SVG wordmark in the corner, concrete body with arrow lists, ink CTA band.',
+      context: '+ The kit. It read: AGENTS.md → magic_trick.md → README routing (“A web page or landing section”) → landing-page.md → components → layout.md → brandmark.md → motion.md → messaging.md → facts.md',
+      img: 'assets/landing-with.jpg', alt: 'Landing section built with the kit: a full-height ink hero, a ten-day timeline with the decision day inked, deliverables beside a giant $30K panel, real work from a past Sprint, an ink close.',
       title: 'The kit decided', sub: 'Every choice below traces to a file, and to the reason written next to it.',
       items: [
-        ['magic_trick.md', 'The italic “And” carries the hero. Every other headline stays plain.', 'One interference per surface: about 90% discipline, 10% meddling.'],
+        ['layout.md', 'Gave the hero the whole first screen: “Fast. Cheap. And Good.” set huge, broken across two lines, with the aside under it.', 'Every hero is full height. The first screen is where the showpiece lives.'],
+        ['magic_trick.md', 'One move per section: the italic “And,” one inked day in the timeline, the ink price panel. Every other headline stays plain.', 'One interference per surface: about 90% discipline, 10% meddling.'],
+        ['layout.md', 'Set $30K as the biggest number on the page, beside seven named deliverables with a line each.', 'One focal point per section. Show the specifics as structure, not adjectives.'],
+        ['facts.md', 'The real schedule (decision day is Day 6), $30K, $80K–$500K+, and 3–9 months, all from the facts file.', 'Numbers and process come only from facts.md. Nothing invented.'],
+        ['facts.md', 'Showed real work from a past Sprint, captioned by deliverable, with no client name.', 'Color comes from imagery, and this work may illustrate Sprints, unattributed.'],
         ['messaging.md', 'Reused the live lines: “Fast. Cheap. And Good.”, the aside, “No guesswork. No haggling.”', 'When an approved line fits, use it. Repetition is how a brand becomes recognizable.'],
-        ['color.md', 'Ink hero, concrete body, ink close.', 'Open dark, work light, close dark.'],
-        ['brandmark.md', 'The SVG wordmark, small, in the corner.', 'Corner or edge to edge. Never floating in between.'],
-        ['graphic-elements.md', 'Arrow lists for what’s included, crosses for the traditional agency, numbered rows for the offers.', 'The arrow means “included.” The cross marks the other model. Rules, not boxes.'],
-        ['facts.md', '$30K, two weeks, $80K–$500K+, 3–9 months, all from the facts file.', 'Numbers come only from facts.md. No invented process.'],
       ],
     },
   },

@@ -6,7 +6,52 @@ Format: `## YYYY-MM-DD: title`, then **Changed**, **Why**, **Affects**, **Checke
 
 ---
 
-## 2026-09-30: v1.6.4 agents.meddle.studio and llms.txt
+## 2026-10-01: v1.7.2 Brand Sprint scope: no voice; client kits get a voice module
+
+**Changed:**
+- **facts.md** records what a Sprint doesn't include: voice, vocabulary, and messaging, which Meddle provides in engagements beyond the Sprint (not tied to one named offer). Sprints do include positioning. The deliverable now reads "an agentic guide to the visual system and its positioning", not "an agentic brand guide like this kit".
+- **Client kits:** `npm run new-client` now makes a Sprint-scope kit by default (visual system and positioning), without `voice-and-tone.md`, `concepts.md`, `messaging.md`, or the copy linter. `--with-voice` keeps them for engagements beyond the Sprint. Template lines ending in `<!-- voice -->` or `<!-- no-voice -->` switch per scope: routing, AGENTS.md, SETUP phases and handoff, eval prompts, rubric, and the two skills. A Sprint kit tells agents that no voice is defined yet: write plainly from positioning.md and facts.md, and flag copy for a voice pass instead of inventing a tone.
+
+**Why:** owner decision. Brand Sprints are strictly visual identity (rooted in positioning, the why and purpose first). A comprehensive brand matters to the owner, so voice and messaging are offered wherever an engagement goes beyond the Sprint. The kit's public site shows Meddle's whole system, voice included, and "like this kit" invited prospects to expect the same in two weeks. The client template also had a Refine phase that filled voice files, so the process quietly promised work the Sprint doesn't sell. Meddle's own voice sections stay public, as a sample of that deeper work. index.html (under the opening statement) and the README intro now say so: "A 2-week Brand Sprint delivers the visual system, grounded in positioning. Voice and messaging come with deeper engagements."
+**Affects:** Sprint pages, proposals, and decks (via facts.md), and every new client kit. Existing client kits are unchanged.
+**Checked:** generated both scopes into a scratch folder. The Sprint kit has no dangling references to the voice files or `npm run check`, and `verify` and `status` run. The `--with-voice` kit's README is identical to the previous template, and its copy linter runs clean. `npm run build` and `npm run verify` pass.
+
+---
+
+## 2026-10-01: v1.7.1 wordmark remixes on merch and art; pre-launch "retired" items removed
+
+**Changed:**
+- **Wordmark: a default, plus remixes.** `meddle-wordmark.svg` at 4.56:1 is the default. Where the wordmark identifies Meddle (header, corner, documents, decks, signatures, icons, client deliverables), it stays untouched. Where it's the design element (merch, posters, campaign and hero art, stage screens, social art, motion), it can be deliberately remixed: squashed, stretched, cropped, or repeated. A remix starts from the master SVG and counts as that surface's one interference. brandmark.md replaces "One proportion, never distorted" with "The default, and the remix". AGENTS.md, motion.md, magic_trick.md, the rubric, both READMEs, index.html, and the with/without showcase are reworded to match.
+- **Removed, not retired:** `brand/assets/logo/retired/` (the squashed and squish files) and the green, blue, and red "legacy" colors (`visual-system.json`, the "Retired colors" section of color.md, the index swatch, and the rubric and skill mentions). The kit no longer mentions them.
+
+**Why:** owner decisions. Messing with the logo is on-brand: it's the mark being meddled with. The squashed files and the green and blue accents were pre-launch explorations, not brand directions, so recording them as "retired" implied a history that never existed and confused agents. Real changes in direction still get recorded. Earlier entries below are left as written.
+**Affects:** merch, posters, campaign and social art, and motion, which can now remix the mark. Web UI, decks, and documents keep the default. The color swatches on index.html lose the "Retired" card. The Figma sync never pushed legacy colors, so nothing changes there.
+**Checked:** `npm run build` and `npm run verify` pass, and the copy linter reports 0 errors on the changed docs.
+
+---
+
+## 2026-10-01: v1.7.0 composition rules, offer-page components, real work imagery
+
+**Changed:**
+- **Composition principles** (layout.md, principles 5–9): one focal element per section on a clear scale ladder; specifics shown as structure (timeline, numbered deliverables, price panel); no two sections in a row with the same shape; open space has to be anchored, or it's a void; any page longer than two screens gets a real image. magic_trick.md gains "What the discipline is not: timid", and its step 1 no longer says "restrained".
+- **Offer pages:** every hero is now `100svh`, offer pages included. The old line ("offer pages may size the hero to its content") came from the kit's first draft, not an owner decision, and the production Sprints page contradicts it. layout.md records the **offer-page anatomy** from the owner's Sprints redesign: hero → promise → timeline → deliverables beside the price → the work → comparison → close. "Rules, not boxes" gets one exception: a single ink panel on a light page (the price) or one inked timeline step.
+- **New components**, ported from the Sprints page v2 styles: `.m-offer-hero`, `.m-kicker`, `.m-timeline` (one inked `.is-key` step), `.m-numbered`, `.m-price`, `.m-gallery`, and `.m-cta--wide`. They're documented in components/README.md (with an offer-page snippet) and demoed in index.html.
+- **Work imagery in the kit:** seven MFO Sprint images in `brand/assets/work/mfo/`, the same ones the Sprints page uses. facts.md says how to caption them (by deliverable, never by client).
+- **`scripts/screenshot.mjs`** (`npm run shot`): a 1440×900 viewport, scrolled so reveals fire, with the scroll themes frozen per section, captured full page. It emulates any width, including 390.
+- **Rubric:** a new Craft line, "It's strong, not just compliant." It fails a page that a competent version made without the kit would beat. evals/README: brief the agent for its best work, ask for gap notes afterward, and render with the screenshot script.
+- **Fix:** `.m-grid` overflowed phones by 26px. Below 768px it kept eleven 2rem gaps, so it now collapses to one column.
+
+**Why:** owner feedback on `showcase/with-without/`: the page made *without* the kit was much stronger than the one made with it. The diagnosis, in two parts:
+1. **The kit only said what not to do.** It covered no color, no radius, and one interference, but nothing about what makes a page land. An obedient agent shrank the hero to its content (as layout.md allowed), buried $30K in a list, showed no schedule or work, and repeated one section shape three times. Every rubric line still passed, because the rubric only checked compliance.
+2. **The test wasn't fair.** The baseline agent was told "Do your best, genuinely good work." The kit agent was framed as a QA tester whose "most important output" was its list of gaps. It also checked its render in a 1440×2600 window, where a `100svh` hero fills the entire screenshot.
+
+The owner's own Sprints page (meddle.studio branch `feature/sprints-page-v2`), with its full-height hero, timeline, giant price panel, and MFO gallery, showed what the kit was missing.
+**Affects:** web pages and landing sections (layout, components, and the recipe), eval practice, and the showcase. Existing pages that use `.m-grid` now stack correctly on phones. `index.html` gains a demo block. The showcase's landing example is now the v1.7.0 run (`evals/runs/2026-10-01-with-kit/`). Its "without" note on the schedule was corrected: the baseline invented a different schedule, with the decision on day 5, while the real one is now in facts.md. Open question B10 asks whether the inked timeline step counts as an interference, given that it sits next to the price panel.
+**Checked:**
+- **Control** (`evals/runs/2026-10-01-control/`): the v1.6.4 kit with a fair brief. The page was better, but still lost to the baseline.
+- **Fresh run on v1.7.0:** same model, same prompt and quality ask, and a snapshot of the kit without earlier outputs. It built the offer anatomy with the real schedule, $30K at display scale, and the MFO gallery, and it holds up against the baseline. Copy linter: 0 errors. No horizontal scroll at 390.
+- **Follow-ups from its notes:** timeline phases align to steps (`--m-span`; `--m-phases` still works), the stacked timeline gets top spacing, facts.md records the billboard crop, and layout.md names the display headline as an offer page's showpiece.
+- **Builds:** `npm run build` and `npm run verify` pass.
 
 **Changed:** the published kit is served at two addresses, brand.meddle.studio and agents.meddle.studio. Both are custom domains on the same Worker (`DOMAINS` in `scripts/build-site.mjs`), with no redirect between them. A new root `llms.txt` is the agent entry point: it links the read order and the kit's files by job. The site build fails if any of its links don't resolve.
 **Why:** the kit is machine-first, and some audiences are shown it for the agent-first approach rather than for the brand. agents.* names the reader, as the AGENTS.md convention does. agentic.* was ruled out because it names a method, not a reader, and it's the address Little Plains uses for its own pitch. Serving both addresses, not redirecting, keeps whichever one was shared in the address bar. The kit is noindex, so there's no ranking to split and no canonical to pick. llms.txt backs the agents.* claim when someone checks it.

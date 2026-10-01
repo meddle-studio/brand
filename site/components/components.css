@@ -150,6 +150,18 @@ body.m-root { margin: 0; }
 /* The end-of-page CTA band: ink, centered, generous. Holds one .m-pill.m-cta. Once per page. */
 .m-cta-band { text-align: center; padding: var(--m-space-3xl) var(--m-layout-gutter); }
 .m-cta-band .m-label { display: block; margin-bottom: var(--m-space-lg); color: var(--m-muted-small); }
+/* Offer pages: the CTA runs the width of the container at h2 size (production: the Sprints page #lets-go band). */
+.m-cta--wide { display: flex; justify-content: center; width: 100%; max-width: var(--m-layout-container-max); margin: 0 auto; font-size: clamp(1.25rem, .6rem + 3vw, 3.75rem); padding: .8em 1em; } /* up to h2 size; stays on one line at 390px */
+
+/* Offer hero (production: the Sprints page): a full-viewport ink opening. The .m-topbar sits at the top,
+   and the kicker, display headline, and aside sit centered in the space below it. */
+.m-offer-hero { min-height: 100svh; display: flex; flex-direction: column; }
+.m-offer-hero__body { margin: auto; padding: var(--m-space-2xl) var(--m-layout-gutter) var(--m-space-3xl); text-align: center; }
+.m-offer-hero__body .m-display { margin-top: var(--m-space-md); }
+.m-offer-hero__body .m-aside { margin-top: var(--m-space-md); }
+
+/* The page kicker: the one mono label above a display hero, at body size ("BRAND SPRINTS"). */
+.m-kicker { display: block; font-family: var(--m-font-mono); font-weight: var(--m-weight-regular); text-transform: uppercase; letter-spacing: 0; font-size: clamp(1rem, .9rem + .3vw, 1.2rem); line-height: 1.2; color: var(--m-muted-small); margin: 0; }
 
 /* The aside: one fully italic line under a display headline, talking back to it. */
 .m-aside { font-family: var(--m-font-serif); font-style: italic; font-weight: 400; font-size: var(--m-type-h3-size); line-height: 1.3; letter-spacing: -0.01em; color: var(--m-fg-secondary); margin: var(--m-space-sm) 0 0; }
@@ -175,6 +187,8 @@ body.m-root { margin: 0; }
 /* 12-column grid (for use outside Bootstrap). Stacks below 768px. */
 .m-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--m-layout-gutter); row-gap: var(--m-space-xl); }
 .m-grid > * { grid-column-end: span 12; } /* end-span only, so .m-span-N and .m-start-N compose */
+/* Below 768px: one column. Twelve tracks would keep eleven 2rem gaps (352px), wider than a phone's content box. */
+@media (max-width: 767.98px) { .m-grid { grid-template-columns: minmax(0, 1fr); } .m-grid > * { grid-column: 1 / -1; } }
 @media (min-width: 768px) {
   .m-grid > .m-span-3 { grid-column-end: span 3; } .m-grid > .m-span-4 { grid-column-end: span 4; } .m-grid > .m-span-5 { grid-column-end: span 5; }
   .m-grid > .m-span-6 { grid-column-end: span 6; } .m-grid > .m-span-7 { grid-column-end: span 7; } .m-grid > .m-span-8 { grid-column-end: span 8; }
@@ -235,6 +249,58 @@ body.m-root { margin: 0; }
 .m-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--m-space-lg); }
 .m-compare h3 { font-weight: var(--m-weight-bold); color: var(--m-muted); margin: 0 0 var(--m-space-2xs); }
 @media (max-width: 767.98px) { .m-compare { grid-template-columns: 1fr; } }
+
+/* Numbered list: what's included, steps. Mono number, then a title with a one-line description under it. */
+.m-numbered { list-style: none; margin: 0; padding: 0; }
+.m-numbered > li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: var(--m-space-sm); padding: 1.1rem 0; border-bottom: var(--m-border-rule) var(--m-rule); }
+.m-numbered__num { font-family: var(--m-font-mono); letter-spacing: 0; font-size: var(--m-type-label-size); color: var(--m-muted-small); padding-top: .55em; }
+.m-numbered h3 { font-size: 1.5rem; font-weight: var(--m-weight-semibold); line-height: 1.2; margin: 0 0 .25rem; }
+.m-numbered p { font-size: 1.05rem; font-weight: var(--m-weight-regular); line-height: 1.4; color: var(--m-fg-secondary); margin: 0; }
+
+/* Timeline: ruled columns for a process with fixed days (the Sprint schedule in facts.md).
+   Exactly one step gets .is-key, which inverts it: that inked cell is the section's interference.
+   Set --m-steps to the number of steps on both the phases row and the list. Each phase spans --m-span
+   steps (default 1), so a phase starts exactly on its first step's rule. Stacks into rows below 992px. */
+.m-timeline__phases { display: grid; grid-template-columns: var(--m-phases, repeat(var(--m-steps, 6), minmax(0, 1fr))); margin: var(--m-space-lg) 0 0; } /* or set --m-phases (e.g. 1fr 2fr 3fr) */
+.m-timeline__phases > span { grid-column: span var(--m-span, 1); }
+.m-timeline__phases > span:not(:last-child) { margin-right: var(--m-space-sm); }
+.m-timeline__phases > span { font-family: var(--m-font-mono); text-transform: uppercase; letter-spacing: 0; font-size: var(--m-type-label-size); color: var(--m-muted-small); border-bottom: var(--m-border-rule) var(--m-rule); padding-bottom: var(--m-space-2xs); }
+.m-timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--m-steps, 6), minmax(0, 1fr)); }
+.m-timeline > li { padding: 1.25rem 1.25rem 2.5rem; border-left: var(--m-border-rule) var(--m-rule); }
+.m-timeline > li:first-child { border-left-color: transparent; padding-left: 0; }
+.m-timeline__when { display: block; font-family: var(--m-font-mono); text-transform: uppercase; letter-spacing: 0; font-size: var(--m-type-label-size); color: var(--m-muted-small); margin-bottom: var(--m-space-sm); }
+.m-timeline h3 { font-size: 1.4rem; font-weight: var(--m-weight-semibold); line-height: 1.2; margin: 0 0 .5rem; }
+.m-timeline p { font-size: 1rem; font-weight: var(--m-weight-regular); line-height: 1.4; color: var(--m-fg-secondary); margin: 0; }
+.m-timeline > li.is-key { background: var(--m-fg); color: var(--m-bg); border-left-color: var(--m-fg); padding-left: 1.25rem; }
+.m-timeline > li.is-key .m-timeline__when, .m-timeline > li.is-key p { color: inherit; opacity: .78; }
+@media (max-width: 991.98px) {
+  .m-timeline__phases { display: none; }
+  .m-timeline { grid-template-columns: 1fr; margin-top: var(--m-space-xl); } /* without the phases row, the first rule would sit on the lede */
+  .m-timeline > li, .m-timeline > li:first-child { display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: var(--m-space-sm); border-left: 0; border-top: var(--m-border-rule) var(--m-rule); padding: 1.25rem 0 1.5rem; }
+  .m-timeline__when { grid-row: span 2; margin: .3rem 0 0; }
+  .m-timeline > li.is-key { padding: 1.25rem var(--m-space-sm) 1.5rem; }
+}
+@media (max-width: 575.98px) { .m-timeline > li, .m-timeline > li:first-child { grid-template-columns: 1fr; } .m-timeline__when { grid-row: auto; margin-bottom: var(--m-space-2xs); } }
+
+/* Price panel: the one ink panel on a light page. Use with .m-theme-dark so the lists and buttons inside adapt.
+   The amount is deliberately larger than display: on an offer page the price and the hero headline are the
+   two biggest things, and the price at this scale is its section's interference. Sticky beside a long list. */
+.m-price { background: var(--m-color-ink); color: var(--m-color-paper); padding: var(--m-space-lg); }
+@media (min-width: 992px) { .m-price { position: sticky; top: var(--m-space-lg); padding: 2.5rem; } }
+.m-price__label { font-family: var(--m-font-mono); text-transform: uppercase; letter-spacing: 0; font-size: var(--m-type-label-size); color: var(--m-muted-small); margin: 0; }
+.m-price__amount { font-size: clamp(5rem, 9vw, 8.5rem); font-weight: var(--m-weight-black); line-height: .9; letter-spacing: var(--m-tracking-brand); margin: 1.25rem 0 .75rem; }
+.m-price__line { font-size: 1.3rem; font-weight: var(--m-weight-medium); margin: 0 0 var(--m-space-md); }
+.m-price .m-list > li { font-size: 1.1rem; }
+.m-price .m-pill { margin-top: var(--m-space-lg); }
+
+/* Gallery: real work, square corners, mono captions. The first figure can span the row (.is-wide). */
+.m-gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--m-space-sm); }
+.m-gallery > figure { margin: 0; }
+.m-gallery > .is-wide { grid-column: 1 / -1; }
+.m-gallery img, .m-gallery video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0; }
+.m-gallery figcaption { margin-top: var(--m-space-2xs); }
+@media (max-width: 991.98px) { .m-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 575.98px) { .m-gallery { grid-template-columns: 1fr; } }
 
 /* ---------- Quote ---------- */
 .m-quote { margin: 0; }

@@ -88,10 +88,6 @@ Owner decision, 2026-09-30: purple is the only accent, and it's a signal.
 - Charts with more than one highlighted series (see below)
 - As the "interference." The interference is typographic or material, never a color.
 
-## Retired colors
-
-Green `#00ff6a`, blue `#4160ff`, and red were accent colors in earlier site CSS. They're **retired** as of 2026-09-30. If you find them in the live site's SCSS, that's legacy code, not a brand decision. Don't reintroduce them. (Green and gold can still appear *inside imagery*, as in the hero video. That's the imagery supplying the color, which is allowed.)
-
 ## Color in imagery
 
 Photography, 3D, and video bring the color, and there's no fixed palette for it. Recurring notes in approved imagery: saturated sky blue, liquid gold and green glass, chrome with iridescent reflections, raw grey concrete, and a flash of red-orange motion blur. See `art-direction.md`.

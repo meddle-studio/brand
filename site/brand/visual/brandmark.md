@@ -4,7 +4,7 @@ Read this before placing the logo anywhere. Files are in [`../assets/logo/`](../
 
 ## The wordmark
 
-**MEDDLE**, custom-drawn heavy capitals, tightly fitted so the letters nearly touch. **One proportion: about 4.56 : 1.**
+**MEDDLE**, custom-drawn heavy capitals, tightly fitted so the letters nearly touch. **Default proportion: about 4.56 : 1.**
 
 Look closely and the drawing is subtly *meddled with*. The M's inner strokes pinch and flare, and the bowls of the D's aren't geometrically perfect. It's a disciplined grotesk that someone has interfered with, which makes it the magic trick in miniature. **Never redraw, "clean up," or retype it in a font.** The irregularities are the point.
 
@@ -18,13 +18,20 @@ The trademark is registered as standard characters (see `facts.md`). In running 
 | `meddle-wordmark-sm.svg` | 136.8 × 30 (4.56 : 1) | The same drawing as shipped in the site header. Use it where a small inline file is handy (email signatures, favicons in context). |
 | `meddle-app-icon.png`, `meddle-icon-512.png` | Square | App and touch icons: a tight crop into the M that bleeds off the edges. |
 | `meddle-avatar-square.png` | Square | Social avatar: the paper wordmark centered on ink. |
-| `retired/` | — | The squashed 5.85:1 version from the 2025 business plan, and the ×0.45 "squish". **Retired by the owner. Don't use them.** |
 
-## One proportion, never distorted
+## The default, and the remix
 
-The wordmark is never stretched or squashed, not vertically, not horizontally, and not in motion. Earlier materials used a vertically squashed 5.85:1 variant; the owner retired it everywhere (2026-09-30). If a space is too short for the wordmark at 4.56:1, make it smaller or move it; don't squash it to fit.
+**The default is 4.56:1, untouched.** Use it in most cases, and always where the wordmark *identifies* Meddle: the site header and corner, documents, proposals, every deck slide, email signatures, avatars and app icons, and anything a client receives. If a space is too short for the default, make it smaller or move it; don't squash it to fit.
 
-*Why:* the wordmark's energy comes from its tall, heavy letters and tight fit. Squashing it flattens exactly the tension that makes it Meddle.
+**Every once in a while, remix it.** When the wordmark is the design element rather than the signature (merch, posters, campaign and hero art, stage screens, social art, motion pieces), it can be squashed, stretched, cropped, repeated, or otherwise messed with. That's on-brand: it's the mark being meddled with on purpose. Owner decision, 2026-10-01.
+
+- **Start from `meddle-wordmark.svg`.** A remix interferes with the real drawing. Never redraw it or retype it in a font.
+- **It's the surface's one interference.** A remixed wordmark is the move, so the rest of the surface stays disciplined: no italic payoff beside it, no second remixed mark.
+- **Make it look deliberate.** Push it hard (a heavy squash, a crop that bleeds off the shirt) rather than a few percent off, which just reads as a mistake.
+- **Color rules still apply:** ink, paper, ghost, or the difference blend, or a material render for art.
+- **Keep the default somewhere close** when the piece goes out alone (a shirt can carry the default on the sleeve or label, a poster can sign off with a corner mark).
+
+*Why:* the wordmark's energy comes from its tall, heavy letters and tight fit, which is why the default is untouched. A remix borrows that tension and plays with it; it only reads as intentional because the standard mark is so consistent everywhere else.
 
 ## Color
 
@@ -42,7 +49,7 @@ The wordmark is never stretched or squashed, not vertically, not horizontally, a
 
 - **Minimum size:** 24px tall on mobile, 30px on desktop. In print, 0.25in tall.
 - **Clear space:** at least the height of the E's middle arm (about ¼ of the wordmark's height) from other elements. The *edge* of the canvas may be closer: the wordmark likes to sit hard in the corner (15–16px on web, 15px on a 1920px slide).
-- **The two approved placements:**
+- **The two approved placements** (for the default; a remix is art, so it follows the composition):
   1. **Corner:** top-left, as identification. Site header, documents, and every deck slide (≈429px wide on a 1920 slide: full contrast on the cover, ghost on interiors).
   2. **Edge to edge:** the wordmark spans the entire width of the surface (web hero, deck closing slide, stage screen, poster) or bleeds off it (business card). This is scale as interference. Use it once per piece, in the opening or closing moment.
 - In between (a medium-sized centered logo floating in space) is the one placement to avoid. It's neither identification nor statement.
@@ -50,8 +57,7 @@ The wordmark is never stretched or squashed, not vertically, not horizontally, a
 ## Don'ts
 
 - Don't set "MEDDLE" in Inter Black as a stand-in. Always use the SVG.
-- Don't stretch, squash, skew, or rotate the mark itself. Rotating a photographed business card is fine.
-- Don't use anything in `retired/`.
+- Don't stretch, squash, skew, or rotate the mark where it identifies Meddle (corner, header, documents, decks, signatures, icons). Remixes are for merch and art; see "The default, and the remix". Rotating a photographed business card is fine.
 - Don't add a tagline lockup to the mark. "Fortune favors the daring" sits separately in mono meta or italic.
 - Don't place it on busy imagery without the difference blend or a clean area.
 - Don't add shadows, glows, or bevels (material renders are art, not the logo).

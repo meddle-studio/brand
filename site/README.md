@@ -4,6 +4,8 @@ The agentic brand system for **Meddle**, a brand and design studio for industry 
 
 It's one source of truth that designers, collaborators, and AI agents all build from: the positioning and voice, the visual rules and assets, and working code. Every rule says **what** to do, **why** it exists, and **where** it applies, so the next person (or agent) can make a good call on a page nobody has designed yet.
 
+A 2-week Brand Sprint delivers the visual system, grounded in positioning. Voice and messaging come with deeper engagements.
+
 Open [`index.html`](index.html) in a browser to explore it visually.
 
 ---
@@ -54,9 +56,10 @@ brand/
     color.md  typography.md  layout.md  brandmark.md
     graphic-elements.md  art-direction.md  effects.md  motion.md
   assets/
-    logo/                 ← the wordmark (one proportion, 4.56:1) + small version + app icons; retired/ = don't use
+    logo/                 ← the wordmark (default 4.56:1; remixes per brandmark.md) + small version + app icons
     icons/                ← arrows
     reference/            ← approved imagery, Figma deck-template renders, video stills
+    work/                 ← real client work for pages and decks (facts.md says how each may be credited)
     illustration/         ← the twisted palm (Orlando HQ), the only official illustration
 components/
   components.css          ← working HTML/CSS components (.m-*)
@@ -123,8 +126,11 @@ The owner (Matt Bacon) approves changes to positioning, the brandmark, and color
 
 ```bash
 npm run new-client -- "Harbor Credit Union" "../Clients/harbor-brand"   # fills names, sets the token prefix (--hcu-*)
+npm run new-client -- "Harbor Credit Union" "../Clients/harbor-brand" --with-voice   # beyond the Sprint: adds the voice module
 cd "../Clients/harbor-brand" && npm run status                           # what's left, by phase
 ```
+
+By default the kit is **Brand Sprint scope**: the visual system and positioning. `--with-voice` adds the voice module (voice and tone, vocabulary, messaging, and the copy linter), for engagements beyond the Sprint. In the template, lines ending in `<!-- voice -->` are kept only with the flag, and lines ending in `<!-- no-voice -->` only without it.
 
 Fill it as decisions land (the order is in its `SETUP.md`), run its eval loop before handoff, then delete `SETUP.md`.
 

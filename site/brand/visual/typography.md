@@ -45,7 +45,7 @@ The brand's signature typographic move. Inside a heavy Inter line, **one word or
 
 - **Always uppercase** (via CSS `text-transform`, so type the source in normal case), weight 400–500. Sizes:
   - **Labels:** 11–14.5px (`--m-type-label-size`, `--m-type-caption-size`). Nearly every use.
-  - **Page kicker:** body size (~19px) for the one-line label above a display hero ("BRAND SPRINTS" over "Fast. Cheap. *And* Good.").
+  - **Page kicker** (`.m-kicker`): body size (~19px) for the one-line label above a display hero ("BRAND SPRINTS" over "Fast. Cheap. *And* Good.").
   - **The end-of-page CTA:** h3–h2 size inside the CTA pill ("BOOK AN INTRO CALL"). A label blown up to headline scale is itself an interference, so it's used once per page, only there. (Production: the Sprints page `#lets-go` band.)
 - **Used for:** nav pills, buttons, tooltip labels, footer, form labels, figure captions, service tags on case-study heroes, deck header meta ("FORTUNE FAVORS / THE DARING"), section numbers ("1.0"), list numbers ("01").
 - **Tracking:** 0 at 12px+, +0.08em at 11px and below.

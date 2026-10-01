@@ -5,10 +5,11 @@ The kit is only as good as what an agent with **no other context** can make from
 ## How to run an eval
 
 1. Start a fresh agent session (new Claude Code session, Cursor chat, or similar) with **only this repo** available. No prior conversation.
-2. Give it one prompt from the list below, verbatim.
-3. Review the output against [`rubric.md`](rubric.md).
-4. For each place it guessed or got something wrong, decide whether it's a **gap** (the kit is silent: add the rule and its *why*) or a **routing miss** (the rule exists but the agent didn't find it: make the README routing or file name clearer).
-5. Log the fix in `CHANGELOG.md` and re-run the same prompt to confirm.
+2. Give it one prompt from the list below, verbatim, and ask for its best work, the same way you'd brief a designer. Ask for notes on gaps *after* the work. An agent told that finding gaps is its main job will play it safe, and you'll be testing the brief instead of the kit.
+3. For web pages, have it check its render with `node scripts/screenshot.mjs <page> <out.png>` (a 1440×900 viewport, scrolled, full page), not a single tall window, which stretches every `100svh` hero across the whole screenshot.
+4. Review the output against [`rubric.md`](rubric.md), including whether it's *strong*: compare it with the same prompt run without the kit (`showcase/with-without/` has one).
+5. For each place it guessed or got something wrong, decide whether it's a **gap** (the kit is silent: add the rule and its *why*) or a **routing miss** (the rule exists but the agent didn't find it: make the README routing or file name clearer).
+6. Log the fix in `CHANGELOG.md` and re-run the same prompt to confirm.
 
 Save notable outputs in `evals/runs/YYYY-MM-DD-<prompt-id>/` with a short `notes.md` covering what passed, what failed, and what changed in the kit.
 

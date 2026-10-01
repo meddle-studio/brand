@@ -46,6 +46,7 @@
   .hero-demo__after { height: 640px; padding: var(--m-space-lg); }
   .statement-wrap { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: var(--m-space-3xl) var(--m-layout-gutter); }
   .statement-wrap .m-statement { max-width: 1100px; }
+  .statement-wrap .scope-note { max-width: 46ch; margin: var(--m-space-xl) auto 0; }
 
   .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-top: var(--m-border-hairline) var(--m-hairline); padding-top: var(--m-space-sm); margin-bottom: var(--m-space-xl); }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--m-space-lg); }
@@ -179,7 +180,10 @@
 
 <!-- ============ STATEMENT ============ -->
 <section class="statement-wrap" id="trick-intro">
-  <h2 class="m-statement m-reveal">One source of truth for designers, collaborators, and agents. Every rule says what, <em>why</em>, and&nbsp;where.</h2>
+  <div>
+    <h2 class="m-statement m-reveal">One source of truth for designers, collaborators, and agents. Every rule says what, <em>why</em>, and&nbsp;where.</h2>
+    <p class="m-body m-secondary m-reveal scope-note">A 2-week Brand Sprint delivers the visual system, grounded in positioning. Voice and messaging come with deeper engagements.</p>
+  </div>
 </section>
 
 <!-- ============ MAGIC TRICK ============ -->
@@ -263,14 +267,14 @@
 <section class="m-section m-theme-dark" style="padding-top:var(--m-space-3xl)">
   <div class="m-container">
     <div class="sec-head"><span class="m-label m-muted">05 · Brandmark</span><a class="file" href="brand/visual/brandmark.md">brand/visual/brandmark.md ↗</a></div>
-    <h2 class="m-h2" style="max-width:22ch">One proportion. Corner or edge to edge, never floating in <em>between</em>.</h2>
+    <h2 class="m-h2" style="max-width:22ch">One default. Corner or edge to edge, never floating in <em>between</em>.</h2>
     <div class="grid-3" style="margin-top:var(--m-space-xl)">
       <figure class="m-figure"><div class="mark-tile corner m-theme-paper"><svg viewBox="0 0 912.766 199.808"><use href="#wm"/></svg></div><figcaption class="m-caption">✓ Corner: identification (deck cover)</figcaption></figure>
       <figure class="m-figure"><div class="mark-tile bleed" style="background:var(--m-color-concrete);color:var(--m-color-ink)"><svg viewBox="0 0 912.766 199.808"><use href="#wm"/></svg></div><figcaption class="m-caption">✓ Edge to edge: statement</figcaption></figure>
       <figure class="m-figure"><div class="mark-tile bad" style="border:1px solid var(--m-hairline)"><svg viewBox="0 0 912.766 199.808" style="width:40%"><use href="#wm"/></svg></div><figcaption class="m-caption">× Mid-size, floating: neither</figcaption></figure>
       <figure class="m-figure"><div class="mark-tile" style="background:url(brand/assets/reference/hero-video-still-calm.jpg) center/cover"><svg viewBox="0 0 912.766 199.808" class="m-blend"><use href="#wm"/></svg></div><figcaption class="m-caption">✓ Over imagery: difference blend</figcaption></figure>
       <figure class="m-figure"><div class="mark-tile corner m-theme-paper" style="position:relative"><svg viewBox="0 0 912.766 199.808" style="color:var(--m-wordmark-ghost);mix-blend-mode:var(--m-wordmark-ghost-blend)"><use href="#wm"/></svg><span class="m-caption" style="position:absolute;left:16px;bottom:14px">Interior slide</span></div><figcaption class="m-caption">✓ Ghost: deck interiors</figcaption></figure>
-      <figure class="m-figure"><div class="mark-tile bad" style="border:1px solid var(--m-hairline);color:var(--m-color-signal)"><svg viewBox="0 0 912.766 199.808" style="transform:scaleY(.62)"><use href="#wm"/></svg></div><figcaption class="m-caption">× Squashed, recolored: one proportion, ink or paper</figcaption></figure>
+      <figure class="m-figure"><div class="mark-tile bad" style="border:1px solid var(--m-hairline);color:var(--m-color-signal)"><svg viewBox="0 0 912.766 199.808"><use href="#wm"/></svg></div><figcaption class="m-caption">× Recolored: ink or paper only</figcaption></figure>
     </div>
     <div class="grid-2" style="margin-top:var(--m-space-2xl);align-items:center">
       <figure class="m-figure"><div class="mark-tile m-theme-paper" style="aspect-ratio:16/9"><img src="brand/assets/illustration/meddle-palm.svg" alt="The twisted palm, Meddle's Orlando HQ mark" style="height:78%;width:auto"></div><figcaption class="m-caption">The twisted palm: Orlando HQ. Our only officially <em class="cap-payoff">unofficial</em> illustration.</figcaption></figure>
@@ -344,6 +348,34 @@
       </div>
     </div>
 
+    <div class="m-theme-light" style="padding:var(--m-space-lg) var(--m-space-sm);margin-top:var(--m-space-lg)">
+      <p class="m-label m-muted">Offer page · <code>.m-timeline</code> · <code>.m-numbered</code> · <code>.m-price</code> · from facts.md</p>
+      <div class="m-timeline__phases" style="--m-steps:6"><span>Before</span><span style="--m-span:2">Week one · Direction</span><span style="--m-span:3">Week two · Refine &amp; deliver</span></div>
+      <ol class="m-timeline" style="--m-steps:6">
+        <li><span class="m-timeline__when">Before · Thursday</span><h3>Questionnaire</h3><p>Answered the week before.</p></li>
+        <li><span class="m-timeline__when">Day 01 · Monday</span><h3>Kickoff</h3><p>One hour.</p></li>
+        <li><span class="m-timeline__when">Days 02–05</span><h3>Two directions</h3><p>Both built in full.</p></li>
+        <li class="is-key"><span class="m-timeline__when">Day 06 · Monday</span><h3>Decision day</h3><p>Both presented. One chosen.</p></li>
+        <li><span class="m-timeline__when">Days 07–09</span><h3>Refine</h3><p>Changes aren’t capped.</p></li>
+        <li><span class="m-timeline__when">Day 10 · Friday</span><h3>Delivery</h3><p>Brand book and final assets.</p></li>
+      </ol>
+      <div class="m-grid" style="margin-top:var(--m-space-xl)">
+        <ol class="m-numbered m-span-7">
+          <li><span class="m-numbered__num">01</span><div><h3>Logo suite</h3><p>The mark and its variations.</p></div></li>
+          <li><span class="m-numbered__num">02</span><div><h3>Typography</h3><p>Typefaces and a hierarchy.</p></div></li>
+          <li><span class="m-numbered__num">03</span><div><h3>Color</h3><p>A palette and its rules.</p></div></li>
+          <li><span class="m-numbered__num">04</span><div><h3>Agentic brand guide</h3><p>The brand, readable by your AI tools.</p></div></li>
+        </ol>
+        <aside class="m-price m-theme-dark m-span-5" aria-label="Price demo">
+          <p class="m-price__label">Brand Sprint</p>
+          <p class="m-price__amount">$30K</p>
+          <p class="m-price__line">One flat fee. Two weeks.</p>
+          <ul class="m-list"><li>Two brand options</li><li>One project at a time</li><li>Dedicated, senior-only talent</li></ul>
+          <a class="m-pill m-button" href="https://meddle.studio/contact/">Book an intro call</a>
+        </aside>
+      </div>
+    </div>
+
     <div class="m-theme-sheet" style="padding:var(--m-space-lg) var(--m-space-sm);margin-top:var(--m-space-lg)">
       <h3 class="m-section-title" style="font-size:clamp(2.2rem,1.2rem + 3vw,4.75rem);margin-bottom:var(--m-space-xl)"><span class="m-section-title__number">5.0</span><span class="m-section-title__text">Services <em>&amp; Offerings</em></span></h3>
       <div class="m-columns" style="font-size:1.05rem;line-height:1.35;font-weight:400">
@@ -402,7 +434,7 @@
     <ul><li><a class="m-link m-link--lead" href="README.md">Readme</a></li><li><a class="m-link m-link--lead" href="CHANGELOG.md">Changelog</a></li></ul>
     <ul><li><a class="m-link m-link--lead m-link--external" href="https://meddle.studio">meddle.studio</a></li><li><a class="m-link m-link--lead m-link--external" href="https://www.linkedin.com/company/meddle-studio">LinkedIn</a></li></ul>
     <span class="m-signoff">Fortune favors the daring.</span>
-    <span class="m-footer__legal">© Meddle 2026 · v1.6.4</span>
+    <span class="m-footer__legal">© Meddle 2026 · v1.7.2</span>
   </div>
 </footer>
 
@@ -471,10 +503,8 @@
     if (!t) return;
     const colors = JSON.parse(t).color;
     const firstSentence = (s) => (s || '').split(/(?<=\.)\s/)[0];
-    const cards = Object.entries(colors).filter(([k]) => k !== 'legacy').map(([name, c]) =>
+    const cards = Object.entries(colors).map(([name, c]) =>
       `<div class="swatch"><div class="chip" style="background:var(--m-color-${name})"></div><h4>${name[0].toUpperCase() + name.slice(1)}</h4><p><code>${c.value}</code> · ${esc(firstSentence(c.use))}</p></div>`);
-    const legacy = colors.legacy;
-    if (legacy) cards.push(`<div class="swatch"><div class="chip m-placeholder" style="background:repeating-linear-gradient(135deg,transparent 0 10px,var(--m-hairline) 10px 11px)"><span class="m-caption">Retired</span></div><h4>Retired</h4><p>${Object.entries(legacy).filter(([k]) => k !== 'status').map(([k, v]) => `<code>${v.value}</code>`).join(' ')} · ${esc(firstSentence(legacy.status))}</p></div>`);
     document.getElementById('swatches').innerHTML = cards.join('');
   });
 

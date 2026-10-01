@@ -50,7 +50,9 @@ Last verified: 2026-09-30, against meddle.studio source (`~/Sites/meddle`).
 - several key mockups demoing the brand
 - a homepage web page design
 - full brand guidelines, in Figma and PDF formats
-- an agentic brand guide like this kit (new as of 2026-09-30)
+- an agentic guide to the visual system and its positioning, so the client's team and AI tools can build from it (new as of 2026-09-30)
+
+**Not in a Brand Sprint:** voice, vocabulary, and messaging. The two-week Sprint delivers the visual system, grounded in positioning (the why and purpose come first). Meddle provides voice and messaging in engagements beyond the Sprint, and a comprehensive brand is the goal wherever scope allows, so don't tie them to one named offer. Don't imply a Sprint delivers a voice guide or a system as complete as Meddle's own kit. Owner-confirmed 2026-10-01.
 
 It's one flat fee over two weeks, with one project at a time and dedicated senior-only talent. The **Web Design Sprint** add-on extends the homepage design to the full site.
 
@@ -67,7 +69,7 @@ It's one flat fee over two weeks, with one project at a time and dedicated senio
 | MFO Nonprofit Accounting | Financial services / nonprofit accounting | Visual identity, website design | A brand that finally matched the firm's reputation with eight-figure-budget nonprofits. |
 | Armor Bands | Healthcare / medical devices / DTC | Brand strategy, visual identity, pitch deck, website design & development (Shopify), photography direction, copywriting | First surgeon meeting after the rebrand ran 90 min against a 60-min agenda; the surgeon offered prime lobby placement. |
 
-**Engagement model:** MFO was a Brand Sprint (owner-confirmed 2026-09-30). Its visuals may illustrate Brand Sprints, unattributed, without tying the page to MFO. Armor Bands' model isn't recorded, so don't present it as a Sprint.
+**Engagement model:** MFO was a Brand Sprint (owner-confirmed 2026-09-30). Its visuals may illustrate Brand Sprints, unattributed, without tying the page to MFO. The files are in `assets/work/mfo/` (billboard, monogram, type, color, business card, signage, slide), the same images the production Sprints page uses. Caption them with the deliverable they show ("Logo suite", "Out of home"), never the client's name. The billboard (`05-ooh-billboard.webp`) is portrait, so in a 16:9 crop set `object-position: 50% 6%` to keep the board in frame. Armor Bands' model isn't recorded, so don't present it as a Sprint.
 
 **Brand Sprint schedule** (from the site's HowTo schema; owner says it's about 90% accurate, pending one correction): questionnaire the Thursday before; Day 1 Monday one-hour kickoff; Days 2–5 two full directions built; Day 6 Monday both presented and one chosen; Days 7–9 refinement, changes uncapped; Day 10 Friday brand book and final assets delivered.
 

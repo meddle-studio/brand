@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "Meddle visual system",
-    "version": "1.6.4",
+    "version": "1.7.2",
     "updated": "2026-09-30",
     "note": "Source of truth for every visual value. Edit this file, then run `node scripts/build-tokens.mjs` to regenerate tokens.css. Never hand-edit tokens.css. References use {path.to.token}. Each token carries `use` (where it applies) and, when non-obvious, `why`.",
     "sources": [
@@ -47,12 +47,6 @@
       "value": "#af69f4",
       "use": "The only accent. Text-selection highlight (40% alpha), keyboard focus ring on dark surfaces, and one-off 'live' indicators. Never a fill for buttons, backgrounds, headlines, or the wordmark.",
       "why": "Owner decision 2026-09-30: the brand is monochrome and purple is a signal, not a color scheme. A signal only works if it is rare."
-    },
-    "legacy": {
-      "status": "retired 2026-09-30. Present in older site SCSS. Do not use in new work.",
-      "green": { "value": "#00ff6a", "status": "retired" },
-      "blue": { "value": "#4160ff", "status": "retired" },
-      "red": { "value": "#ff0000", "status": "retired" }
     }
   },
 

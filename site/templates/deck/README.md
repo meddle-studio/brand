@@ -3,7 +3,7 @@
 **Master:** Figma, **"Discovery & Strategy (TEMPLATE)"**: https://www.figma.com/design/F5oGU0iiKPWWgMGkZDaA21/Discovery---Strategy--TEMPLATE-?node-id=8-553. It's the source of truth for decks. Build client decks by duplicating it in Figma.
 **Working HTML:** [`deck.html`](deck.html): the same system at 1920×1080, with print-to-PDF built in. Use it for agent-built decks, quick internal decks, and anywhere Figma isn't available.
 **Read first:** `brand/magic_trick.md`, `brand/visual/layout.md` (Decks), `brand/visual/typography.md` (deck scale), `brand/visual/brandmark.md` (ghost wordmark).
-**References:** `brand/assets/reference/deck-template-*.jpg`, renders of the Figma master. (`archive-business-plan-2025/` is the previous generation. Don't copy its squashed wordmark or dark cover.)
+**References:** `brand/assets/reference/deck-template-*.jpg`, renders of the Figma master. (`archive-business-plan-2025/` is the previous generation. Don't copy its wordmark or dark cover.)
 
 ## Slide types
 

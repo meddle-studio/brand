@@ -35,7 +35,8 @@ See `motion.json` → `patterns` for exact values.
 ## The wordmark in motion
 
 - Approved: the difference blend over moving footage, fades, and wipes or masks that reveal the whole mark.
-- Not approved: any stretching or squashing (the wordmark has one proportion; see `brandmark.md`), spinning, per-letter bouncing, or glitch effects that break the letterforms.
+- A squash or stretch is a remix (see `brandmark.md`): fine in campaign, social, and merch motion where the wordmark is the design element, never on the site header, corner wordmark, or deck mark.
+- Not approved: spinning, per-letter bouncing, or glitch effects that break the letterforms.
 
 ## Video
 

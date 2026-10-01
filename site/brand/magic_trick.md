@@ -27,7 +27,7 @@ The system already does this everywhere. These are the approved moves:
 |---|---|---|
 | Headline | Heavy Inter, tight tracking | **One word or phrase in Libre Baskerville italic:** "Executive *Summary*", "It's time you seized an *unfair advantage*." |
 | Sales copy | Plain claims, real prices | **One wink:** "Fast. Cheap. *And* Good." / "All three? At the same time? In THIS economy?" |
-| Wordmark | Heavy, caps, tightly fitted | **Scale:** it runs edge to edge, bleeds off a business card, or fills a stage screen |
+| Wordmark | Heavy, caps, tightly fitted | **Scale:** it runs edge to edge, bleeds off a business card, or fills a stage screen. **Remix:** on merch or art, squashed, stretched, or cropped |
 | Web page | Monochrome, gridded, calm | **Material:** one loop of glossy 3D glass, chrome, or liquid behind the type, with the wordmark flipped by `mix-blend-mode: difference` |
 | Case study | Straight narrative | **One reframe:** "The category sells management. Armor Bands sells reclamation." |
 
@@ -39,14 +39,18 @@ It's also the name. To meddle is to interfere with something that was going to h
 
 ## When the kit doesn't cover your case
 
-1. Build the most rigorous, restrained version first: ink, grid, Inter, rules, mono labels. Make it good enough to stand on its own.
+1. Build the most rigorous version first: ink, grid, heavy Inter at full scale, rules, mono labels, and the real specifics. Make it good enough to stand on its own.
 2. Then ask: *where is the one place this should break the pattern?* Pick the moment that carries the idea (the payoff word, the headline, the hero, the final CTA).
 3. Break the pattern there, on purpose, at full volume. Leave everything else alone.
 4. If you can't find the one place, the piece isn't clear enough yet. Fix the message before you decorate it.
+
+## What the discipline is not
+
+**Not timid.** The 90% is heavy type at full scale, a strict grid, and concrete specifics (the price, the schedule, the real work). If everything on a page is mid-size, vague, and sparse, it isn't disciplined. It's unfinished, and a competent generic page will beat it. Discipline is what makes the page credible, so it has to look like it could win the room on its own, before the interference.
 
 ## What the interference is not
 
 - **Not decoration.** A flourish that doesn't carry meaning is noise. Italicize the payoff word, not a random one.
 - **Not color.** The brand is monochrome. Purple is a signal (selection, focus), never the interference. Color comes from imagery.
-- **Not chaos.** A stretched wordmark on a messy layout is just a mess. The interference only reads against discipline.
+- **Not chaos.** A remixed wordmark on a messy layout is just a mess. The interference only reads against discipline.
 - **Not edginess for its own sake.** "Meddle" is mischievous, not hostile. We interfere with the *status quo*, not with the client, and never at anyone's expense.

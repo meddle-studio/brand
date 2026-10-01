@@ -39,6 +39,7 @@ Anything goes *inside* the image, and it's encouraged, since this is where the b
 ## Presenting client work
 
 - Show the work in believable, specific places: a billboard, a real business card, office signage, a device in a hand.
+- Approved work images live in `../assets/work/<client>/`. `facts.md` says which offer each one may illustrate and how it may be credited.
 - The client's palette leads inside the frame, and Meddle's monochrome frames it.
 - Replace clichés with specifics. From the MFO case study: "We traded generic nonprofit clichés (smiling children, clasped hands, etc.) for a system built on specificity."
 - Case-study ratios: 16:9 landscape, 5:6 portrait pairs, and short muted video loops with poster frames.
