@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "note": "Motion values. Read with motion.md, which says when to use each. Values come from meddle.studio production CSS and JS unless marked as a decision.",
+    "updated": "2026-09-30"
+  },
+  "easing": {
+    "expo": {
+      "value": "cubic-bezier(0.19, 1, 0.22, 1)",
+      "use": "The signature curve. Theme changes, underline draws, reveals, galleries. It moves hard at first and then settles slowly: confident, unhurried."
+    },
+    "standard": {
+      "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "use": "Small UI state changes: pill hover colors, tooltip fades."
+    },
+    "in-out": {
+      "value": "cubic-bezier(0.455, 0.03, 0.515, 0.955)",
+      "use": "Things that leave and come back: nav hiding on scroll down and returning on scroll up."
+    }
+  },
+  "duration": {
+    "instant": { "value": "150ms", "reducedMotion": "0ms", "use": "Hover color and tooltip fade." },
+    "quick": { "value": "300ms", "reducedMotion": "0ms", "use": "Nav show/hide, pill transitions, press feedback release." },
+    "moderate": { "value": "500ms", "reducedMotion": "0ms", "use": "Gallery open/close, short reveals of labels." },
+    "slow": { "value": "800ms", "reducedMotion": "0ms", "use": "Theme crossfade between dark and light sections." },
+    "deliberate": { "value": "950ms", "reducedMotion": "0ms", "use": "Link underline draw and retract." },
+    "reveal": { "value": "1000ms", "reducedMotion": "0ms", "use": "Scroll reveals for headings and list items." },
+    "statement": { "value": "1500ms", "reducedMotion": "0ms", "use": "Scroll reveal for the one centered statement per page." }
+  },
+  "patterns": {
+    "reveal-statement": {
+      "trigger": "Scrolls into view",
+      "animation": "fade-up",
+      "duration": "{duration.statement}",
+      "easing": "{easing.expo}",
+      "rule": "Only the page's positioning statement gets 1500ms. It should feel like the room going quiet."
+    },
+    "reveal-list": {
+      "trigger": "Scrolls into view",
+      "animation": "fade-right, each item in turn",
+      "duration": "{duration.reveal}",
+      "easing": "{easing.expo}",
+      "rule": "Bordered lists enter from the left, the direction the arrows point. Disable below 768px (.aos-md): mobile users scroll too fast to wait."
+    },
+    "theme-crossfade": {
+      "trigger": "An element with data-scroll-theme crosses the viewport midpoint",
+      "properties": "background-color, color",
+      "duration": "{duration.slow}",
+      "easing": "{easing.expo}",
+      "rule": "Pages open dark and cross into light as the work begins. Never a hard cut."
+    },
+    "underline": {
+      "trigger": "Hover on a text link (desktop, hover-capable)",
+      "properties": "transform: scaleX on a 0.075em currentColor bar",
+      "duration": "{duration.deliberate}",
+      "easing": "{easing.expo}",
+      "rule": "Draws in from the left and exits to the right. On touch devices the underline is always visible."
+    },
+    "press": {
+      "trigger": ":active on pills",
+      "properties": "transform: scale(0.9) for nav pills; scale(0.95) translateY(2px) for the primary CTA",
+      "duration": "{duration.quick}",
+      "rule": "Everything you press should feel physically pressed."
+    },
+    "cta-lift": {
+      "trigger": "Hover on the primary CTA band",
+      "properties": "translateY(-4px), glow shadow, border fades to transparent",
+      "duration": "{duration.quick}",
+      "easing": "{easing.standard}",
+      "rule": "Only one element per page gets the lift: the CTA that ends the page."
+    },
+    "nav-autohide": {
+      "trigger": "Scroll direction",
+      "properties": "top",
+      "duration": "{duration.quick}",
+      "easing": "{easing.in-out}",
+      "rule": "Hide on scroll down, return on scroll up. Content first."
+    },
+    "tooltip-follow": {
+      "trigger": "Hover on a linked row (desktop only)",
+      "properties": "opacity, position follows cursor",
+      "duration": "{duration.instant}",
+      "easing": "{easing.standard}",
+      "rule": "The mono pill label names the action ('Book an intro call', 'Explore Sprints')."
+    },
+    "hero-sticky-wordmark": {
+      "trigger": "Scroll on the homepage hero",
+      "properties": "position: sticky on the wordmark; position: sticky on the nav",
+      "rule": "The wordmark starts centered, sticks to the top, and stops just above the nav (margin-bottom = nav height - 12px). The nav then pins to the top and auto-hides. Implemented as .m-hero in components.css/js."
+    },
+    "hero-video": {
+      "trigger": "Autoplay, muted, loop, playsinline",
+      "rule": "Abstract 3D material loops behind the wordmark. Provide landscape and portrait cuts. Always have a poster frame."
+    }
+  },
+  "reducedMotion": {
+    "rule": "Under prefers-reduced-motion, remove all translation and reveals and show content at rest. Color transitions may stay. Marquees slow to 50s. Hero video shows its poster frame."
+  }
+}
